@@ -12,8 +12,9 @@ struct MainView: View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
-                .foregroundStyle(.tint)
+                .foregroundStyle(Colors.ComponentsColors.mainBackground)
             Text("Hello, world!")
+                .font(Font.customFont(size: 50).bold())
         }
         .padding()
     }
