@@ -15,7 +15,12 @@ struct GameViewStart: View {
                     .ignoresSafeArea()
                 
                 VStack {
-                    Text("test")
+                    Text("Нажмите \"Запустить\" чтобы начать игру")
+                        .multilineTextAlignment(.center)
+                        .font(Font.customFont(size: 28).weight(.medium))
+                        .foregroundStyle(Colors.TextColors.primary)
+                    
+                    Spacer()
                     
                     Button {
                         
@@ -25,9 +30,11 @@ struct GameViewStart: View {
                             .foregroundStyle(Colors.TextColors.primary)
                     }
                     .frame(maxWidth: .infinity, minHeight: 55)
-                    .padding(.horizontal, 22.5)
                     .background(Colors.ComponentsColors.gameViewButton)
+                    .clipShape(.rect(cornerRadius: 10))
                 }
+                .padding(.horizontal, 22.5)
+                .padding(.bottom, 28)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
