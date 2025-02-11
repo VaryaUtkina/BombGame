@@ -9,6 +9,6 @@ import SwiftUI
 
 extension Font {
     static func customFont(size: CGFloat) -> Font {
-        Font.system(size: size, weight: .regular, design: .rounded)
+        Font.system(size: size, design: .rounded)
     }
 }
