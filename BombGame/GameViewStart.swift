@@ -14,6 +14,11 @@ struct GameViewStart: View {
                 Colors.ComponentsColors.gameBackground
                     .ignoresSafeArea()
                 
+                CurvedShape()
+                    .ignoresSafeArea()
+                    .foregroundStyle(.curvedShape)
+                
+                
                 VStack {
                     Text("Нажмите \"Запустить\" чтобы начать игру")
                         .multilineTextAlignment(.center)
@@ -23,7 +28,7 @@ struct GameViewStart: View {
                     Spacer()
                     
                     Button {
-                        
+                        // TODO: - запустить игру
                     } label: {
                         Text("Запустить")
                             .font(Font.customFont(size: 20).weight(.bold))
