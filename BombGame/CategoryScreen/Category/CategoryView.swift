@@ -54,7 +54,3 @@ struct CategoryView: View {
         )
     }
 }
-
-//#Preview {
-//    CategoryView(category: CategoriesManager.shared.getAllCategories()[0], checkMarkIsHidden: true)
-//}

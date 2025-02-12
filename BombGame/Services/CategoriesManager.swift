@@ -18,10 +18,6 @@ final class CategoriesManager {
         allCategories
     }
     
-    func getSelectedCategories() -> Set<Category> {
-        selectedCategories
-    }
-    
     func toggleCategory(_ category: Category) {
         if selectedCategories.contains(category) {
             selectedCategories.remove(category)
@@ -32,6 +28,10 @@ final class CategoriesManager {
     
     func isActive(_ category: Category) -> Bool {
         selectedCategories.contains(category)
+    }
+    
+    func getQuestion() -> String {
+        "Это заглушка для тестов с длинной строки 51 символ."
     }
     
     private let allCategories: [Category] = [
