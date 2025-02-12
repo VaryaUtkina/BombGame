@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Lottie
 
 struct GameView: View {
     @StateObject private var viewModel = GameViewModel(model: GameModel())
@@ -14,6 +15,12 @@ struct GameView: View {
         viewModel.isGameLaunched
         ? Font.customFont(size: 28).weight(.black)
         : Font.customFont(size: 28).weight(.medium)
+    }
+    
+    private var playbackMode: LottiePlaybackMode {
+        viewModel.isGameLaunched
+        ? .playing(.fromProgress(0, toProgress: 1, loopMode: .playOnce))
+        : .paused(at: .currentFrame)
     }
     
     var body: some View {
@@ -33,8 +40,10 @@ struct GameView: View {
                         .font(topTextFont)
                         .foregroundStyle(Colors.TextColors.primary)
                     
-                    Spacer()
-                    
+                    LottieView(animation: .named(viewModel.model.texts.animationName))
+                    .playbackMode(playbackMode)
+                    .opacity(viewModel.isGameLaunched ? 1 : 0)
+
                     Button {
                         viewModel.startGame()
                     } label: {

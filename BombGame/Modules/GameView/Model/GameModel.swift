@@ -7,10 +7,12 @@
 
 
 struct GameModel {
+    let bombURL: String
     let texts: Texts
     let questions: [String]
     
     init() {
+        bombURL = "https://lottie.host/a092c9b5-349c-4b0c-8c8f-ed125da22ab0/763h1v0fsA.lottie"
         texts = Texts()
         questions = [
             "Назови олимпийский вид спорта",
