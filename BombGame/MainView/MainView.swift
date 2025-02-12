@@ -9,40 +9,41 @@ import SwiftUI
 
 struct MainView: View {
     var body: some View {
-        ZStack {
-            Color(red: 255/255, green: 250/255, blue: 94/255)
-            Image(.mainbackgroundShape)
-                .resizable()
-
-            VStack(spacing: 70) {
-                VStack {
-                    Text("ИГРА ДЛЯ КОМПАНИИ")
-                        .font(Font.customFont(size: 28).weight(.black))
-                    Text("БОМБА")
-                        .font(Font.customFont(size: 48).weight(.black))
-                }
-                .frame(maxWidth: .infinity, alignment: .center)
-                .foregroundStyle(Colors.TextColors.primary)
-                
-                Image(.mainbomb)
+        NavigationStack {
+            ZStack {
+                Color(red: 255/255, green: 250/255, blue: 94/255)
+                Image(.mainbackgroundShape)
                     .resizable()
-                    .frame(width: 274, height: 300)
                 
-                VStack {
-                    ButtonView(text: "Старт игры")
-                        .onTapGesture {
-                            print("tap1")
-                        }
+                VStack(spacing: 70) {
+                    VStack {
+                        Text("ИГРА ДЛЯ КОМПАНИИ")
+                            .font(Font.customFont(size: 28).weight(.black))
+                        Text("БОМБА")
+                            .font(Font.customFont(size: 48).weight(.black))
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .foregroundStyle(Colors.TextColors.primary)
                     
-                    ButtonView(text: "Категории")
-                        .onTapGesture {
-                            print("tap2")
+                    Image(.mainbomb)
+                        .resizable()
+                        .frame(width: 274, height: 300)
+                    
+                    VStack {
+                        NavigationLink(destination: GameViewStart()) {
+                            ButtonView(text: "Старт игры")
                         }
+                        
+                        //TODOO
+                        NavigationLink(destination: EmptyView()) {
+                            ButtonView(text: "Категории")
+                        }
+                    }
+                    .padding(.horizontal, 23)
                 }
-                .padding(.horizontal, 23)
             }
+            .ignoresSafeArea()
         }
-        .ignoresSafeArea()
     }
 }
 
