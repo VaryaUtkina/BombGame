@@ -5,4 +5,15 @@
 //  Created by lorenc_D_K on 12.02.2025.
 //
 
-import Foundation
+
+struct Texts {
+    let title: String
+    let launchGame: String
+    let launch: String
+    
+    init() {
+        title = "Игра"
+        launchGame = "Нажмите “Запустить”, чтобы начать игру"
+        launch = "Запустить"
+    }
+}
