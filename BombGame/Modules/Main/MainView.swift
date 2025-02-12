@@ -30,12 +30,11 @@ struct MainView: View {
                         .frame(width: 274, height: 300)
                     
                     VStack {
-                        NavigationLink(destination: GameViewStart()) {
+                        NavigationLink(destination: GameView()) {
                             MainButtonView(text: "Старт игры")
                         }
                         
-                        //TODOO
-                        NavigationLink(destination: EmptyView()) {
+                        NavigationLink(destination: CategoriesView()) {
                             MainButtonView(text: "Категории")
                         }
                     }
