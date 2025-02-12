@@ -7,21 +7,23 @@
 
 import SwiftUI
 
-struct MainButtonView: View {
-    var text: String
+struct MainCustomButton: View {
+    let title: String
+    let action: () -> Void
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 15)
-            .fill(.mainSheetBg)
-            .frame(height: 55)
-            .overlay {
-                Text(text)
-                    .font(Font.customFont(size: 20).weight(.medium))
-                    .foregroundStyle(Colors.TextColors.primary)
-            }
+        Button(action: action) {
+            Text(title)
+                .font(Font.customFont(size: 20).weight(.bold))
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color(.gameBackground))
+                .cornerRadius(12)
+        }
     }
 }
 
 #Preview {
-    MainButtonView(text: "Старт игры")
+    MainCustomButton(title: "Start", action: {})
 }
