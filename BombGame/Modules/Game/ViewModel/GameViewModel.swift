@@ -11,29 +11,63 @@ final class GameViewModel: ObservableObject {
     @Published var model: GameModel
     @Published var topText: String
     @Published var isGameLaunched = false
+    @Published var isGamePaused = false
     let bombURL: URL
     var animationSpeed: CGFloat { baseAnimationDuration / gameDuration }
-    private let baseAnimationDuration: CGFloat = 7.5
+    private let baseAnimationDuration: CGFloat = 8
     private var gameDuration: CGFloat = 30
+    private let audioPlayer: AudioPlayer
+    private var timer: Timer?
+    private var counter = 0.0
     
     
-    init(model: GameModel) {
+    init(model: GameModel, audioPlayer: AudioPlayer) {
         self.model = model
+        self.audioPlayer = audioPlayer
         topText = model.texts.launchGame
         bombURL = URL(string: model.bombURL) ?? URL(filePath: "")
     }
     
     func startGame() {
         isGameLaunched = true
-        topText = model.questions.randomElement() ?? ""
-        Task {
-            try await Task.sleep(nanoseconds: UInt64(gameDuration * 1_000_000_000))
-            endGame()
-        }
+        topText = "some text"
+        audioPlayer.playSound(file: model.timerSound, loopsNumber: -1)
+        counter = gameDuration
+        startTimer()
     }
     
-    func endGame() {
+    func pauseGame() {
+        isGamePaused.toggle()
+        isGamePaused ? timer?.invalidate() : startTimer()
+        audioPlayer.isPlaying ? audioPlayer.pause() : audioPlayer.play()
+    }
+    
+    private func endGame() {
         isGameLaunched = false
         topText = model.texts.launchGame
+        audioPlayer.stop()
+        timer?.invalidate()
+    }
+    
+    private func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] _ in
+            self?.onTimerFires()
+        })
+//        Timer(timeInterval: counter, repeats: true, block: { [weak self] _ in
+//            self?.onTimerFires()
+//        })
+        
+    }
+    
+    private func onTimerFires() {
+        print("Counter: ", counter)
+        guard counter > 0 else {
+            endGame()
+            return
+        }
+            counter -= 1
+        if counter == 2 {
+            audioPlayer.playSound(file: model.explosionSound, loopsNumber: 1)
+        }
     }
 }

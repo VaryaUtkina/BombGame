@@ -9,7 +9,10 @@ import SwiftUI
 import Lottie
 
 struct GameView: View {
-    @StateObject private var viewModel = GameViewModel(model: GameModel())
+    @StateObject private var viewModel = GameViewModel(
+        model: GameModel(),
+        audioPlayer: AudioPlayer()
+    )
     
     private var topTextFont: Font {
         viewModel.isGameLaunched
