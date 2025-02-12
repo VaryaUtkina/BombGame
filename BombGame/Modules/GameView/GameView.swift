@@ -41,6 +41,7 @@ struct GameView: View {
                         .foregroundStyle(Colors.TextColors.primary)
                     
                     LottieView(animation: .named(viewModel.model.texts.animationName))
+                        .animationSpeed(viewModel.animationSpeed)
                     .playbackMode(playbackMode)
                     .opacity(viewModel.isGameLaunched ? 1 : 0)
 
@@ -59,15 +60,13 @@ struct GameView: View {
                 .padding(.horizontal, 22.5)
                 .padding(.bottom, 28)
             }
-            .navigationTitle(viewModel.model.texts.title)
-            .navigationBarTitleDisplayMode(.large)
-//            .toolbar {
-//                ToolbarItem(placement: .principal) {
-//                    Text("Игра")
-//                        .font(Font.customFont(size: 30).weight(.black))
-//                        .foregroundStyle(Colors.TextColors.primary)
-//                }
-//            }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(viewModel.model.texts.title)
+                        .font(Font.customFont(size: 30).weight(.black))
+                        .foregroundStyle(Colors.TextColors.primary)
+                }
+            }
         }
     }
 }

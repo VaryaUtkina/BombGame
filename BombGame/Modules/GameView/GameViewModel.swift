@@ -12,6 +12,9 @@ final class GameViewModel: ObservableObject {
     @Published var topText: String
     @Published var isGameLaunched = false
     let bombURL: URL
+    var animationSpeed: CGFloat { baseAnimationDuration / gameDuration }
+    private let baseAnimationDuration: CGFloat = 7.5
+    private var gameDuration: CGFloat = 30
     
     
     init(model: GameModel) {
@@ -24,7 +27,7 @@ final class GameViewModel: ObservableObject {
         isGameLaunched = true
         topText = model.questions.randomElement() ?? ""
         Task {
-            try await Task.sleep(nanoseconds: 3_000_000_000)
+            try await Task.sleep(nanoseconds: UInt64(gameDuration * 1_000_000_000))
             endGame()
         }
     }
