@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct GameViewStart: View {
+struct GameView: View {
+    @StateObject private var viewModel = GameViewModel()
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -53,5 +55,5 @@ struct GameViewStart: View {
 }
 
 #Preview {
-    GameViewStart()
+    GameView()
 }
