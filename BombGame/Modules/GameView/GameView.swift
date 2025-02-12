@@ -8,7 +8,13 @@
 import SwiftUI
 
 struct GameView: View {
-    @StateObject private var viewModel = GameViewModel()
+    @StateObject private var viewModel = GameViewModel(model: GameModel())
+    
+    private var topTextFont: Font {
+        viewModel.isGameLaunched
+        ? Font.customFont(size: 28).weight(.black)
+        : Font.customFont(size: 28).weight(.medium)
+    }
     
     var body: some View {
         NavigationStack {
@@ -22,34 +28,37 @@ struct GameView: View {
                 
                 
                 VStack {
-                    Text("Нажмите \"Запустить\" чтобы начать игру")
+                    Text(viewModel.topText)
                         .multilineTextAlignment(.center)
-                        .font(Font.customFont(size: 28).weight(.medium))
+                        .font(topTextFont)
                         .foregroundStyle(Colors.TextColors.primary)
                     
                     Spacer()
                     
                     Button {
-                        // TODO: - запустить игру
+                        viewModel.startGame()
                     } label: {
-                        Text("Запустить")
+                        Text(viewModel.model.texts.launch)
                             .font(Font.customFont(size: 20).weight(.bold))
                             .foregroundStyle(Colors.TextColors.primary)
                     }
                     .frame(maxWidth: .infinity, minHeight: 55)
                     .background(Colors.ComponentsColors.gameViewButton)
                     .clipShape(.rect(cornerRadius: 10))
+                    .opacity(viewModel.isGameLaunched ? 0 : 1)
                 }
                 .padding(.horizontal, 22.5)
                 .padding(.bottom, 28)
             }
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("Игра")
-                        .font(Font.customFont(size: 30).weight(.black))
-                        .foregroundStyle(Colors.TextColors.primary)
-                }
-            }
+            .navigationTitle(viewModel.model.texts.title)
+            .navigationBarTitleDisplayMode(.large)
+//            .toolbar {
+//                ToolbarItem(placement: .principal) {
+//                    Text("Игра")
+//                        .font(Font.customFont(size: 30).weight(.black))
+//                        .foregroundStyle(Colors.TextColors.primary)
+//                }
+//            }
         }
     }
 }
