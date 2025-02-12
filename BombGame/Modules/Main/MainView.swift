@@ -8,18 +8,12 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var isStartGameActive = false
-    @State private var isCategoriesActive = false
-    
     var body: some View {
         NavigationStack {
             ZStack {
                 Color(red: 255/255, green: 250/255, blue: 94/255)
-                    .ignoresSafeArea()
-                
                 Image(.mainbackgroundShape)
                     .resizable()
-                    .ignoresSafeArea()
                 
                 VStack(spacing: 70) {
                     VStack {
@@ -36,24 +30,19 @@ struct MainView: View {
                         .frame(width: 274, height: 300)
                     
                     VStack {
-                        MainCustomButton(title: "Старт Игры") {
-                            isStartGameActive.toggle()
+                        NavigationLink(destination: GameViewStart()) {
+                            MainButtonView(text: "Старт игры")
                         }
                         
-                        MainCustomButton(title: "Категории") {
-                            isStartGameActive.toggle()
-                            
+                        //TODOO
+                        NavigationLink(destination: EmptyView()) {
+                            MainButtonView(text: "Категории")
                         }
                     }
                     .padding(.horizontal, 23)
                 }
             }
-            .navigationDestination(isPresented: $isStartGameActive) {
-                GameViewStart()
-            }
-            .navigationDestination(isPresented: $isCategoriesActive) {
-                GameViewStart()
-            }
+            .ignoresSafeArea()
         }
     }
 }
@@ -61,3 +50,5 @@ struct MainView: View {
 #Preview {
     MainView()
 }
+
+
