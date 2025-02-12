@@ -31,12 +31,12 @@ struct MainView: View {
                     
                     VStack {
                         NavigationLink(destination: GameViewStart()) {
-                            ButtonView(text: "Старт игры")
+                            MainButtonView(text: "Старт игры")
                         }
                         
                         //TODOO
                         NavigationLink(destination: EmptyView()) {
-                            ButtonView(text: "Категории")
+                            MainButtonView(text: "Категории")
                         }
                     }
                     .padding(.horizontal, 23)
@@ -51,18 +51,4 @@ struct MainView: View {
     MainView()
 }
 
-struct ButtonView: View {
-    var text: String
-    
-    var body: some View {
-        RoundedRectangle(cornerRadius: 15)
-            .fill(.mainSheetBg)
-            .frame(height: 55)
-            .overlay {
-                Text(text)
-                    .font(Font.customFont(size: 20).weight(.medium))
-                    .foregroundStyle(Colors.TextColors.primary)
-            }
-         
-    }
-}
+
