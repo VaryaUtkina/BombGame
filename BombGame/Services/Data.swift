@@ -1,59 +1,14 @@
 //
-//  CategoriesManager.swift
+//  Data.swift
 //  BombGame
 //
-//  Created by nikita on 11.02.25.
+//  Created by nikita on 13.02.25.
 //
 
 import Foundation
 
-final class CategoriesManager {
-    static let shared = CategoriesManager()
-    
-    private var selectedCategories: Set<Category> = []
-    private var questionQueue: [String] = []
-    private var punishmentQueue: [String] = []
-    
-    private init() {}
-    
-    func getAllCategories() -> [Category] {
-        allCategories
-    }
-    
-    func toggleCategory(_ category: Category) {
-        if selectedCategories.contains(category) {
-            selectedCategories.remove(category)
-        } else {
-            selectedCategories.insert(category)
-        }
-    }
-    
-    func isActive(_ category: Category) -> Bool {
-        selectedCategories.contains(category)
-    }
-    
-    func getQuestion() -> String {
-        if questionQueue.isEmpty {
-            makeQuestionsQueue()
-        }
-        return questionQueue.removeLast()
-    }
-    
-    func getPunishments() -> String {
-        if punishmentQueue.isEmpty {
-            punishmentQueue = punishments.shuffled()
-        }
-        return punishmentQueue.removeLast()
-    }
-    
-    private func makeQuestionsQueue() {
-        (selectedCategories.isEmpty ? allCategories : Array(selectedCategories)).forEach { category in
-            questionQueue += category.questions
-        }
-        questionQueue = questionQueue.shuffled()
-    }
-    
-    private var punishments: [String] = [
+struct Data {
+    let punishments: [String] = [
         "Признайся в любви на корявом французском тому, кто справа",
         "Пройди два круга по комнате, изображая курицу",
         "Расскажи, что ты делал вчера, голосом старого ковбоя",
@@ -77,7 +32,7 @@ final class CategoriesManager {
         "В течение 30 секунд говори на вымышленном языке, смотря прямо в глаза тому, кто напротив"
     ]
     
-    private let allCategories: [Category] = [
+    let allCategories: [Category] = [
         Category(
             id: UUID(),
             title: "Кино и Искусство",
