@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+final class CategoriesViewModel: ObservableObject {
+    @Published var isHelpPresented = false
+    
+    let categories = CategoriesManager.shared.getAllCategories()
+    
+    func toggleHelp() {
+        isHelpPresented.toggle()
+    }
+}
