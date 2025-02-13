@@ -1,5 +1,5 @@
 //
-//  CustomButtonView.swift
+//  ButtonView.swift
 //  BombGame
 //
 //  Created by Варвара Уткина on 12.02.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomButtonView: View {
+struct ButtonView: View {
     let title: String
     let action: () -> Void
     
@@ -24,12 +24,11 @@ struct CustomButtonView: View {
         .background(Colors.ComponentsColors.gameViewButton)
         .clipShape(.rect(cornerRadius: 10))
         .shadow(radius: 2)
-        .shadow(radius: 2)
     }
         .padding(.horizontal, 22.5)
     }
 }
 
 #Preview {
-    CustomButtonView(title: "Запустить", action: {})
+    ButtonView(title: "Запустить", action: {})
 }
