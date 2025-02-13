@@ -19,12 +19,12 @@ final class GameViewModel: ObservableObject {
     private var gameDuration: CGFloat = 30
     private let audioPlayer: AudioPlayer
     private var timer: Timer?
-    private let manager: CategoriesManager
+    private let manager: DataManager
     private var counter = 0.0
     
     
     
-    init(model: GameModel, audioPlayer: AudioPlayer, manager: CategoriesManager) {
+    init(model: GameModel, audioPlayer: AudioPlayer, manager: DataManager) {
         self.model = model
         self.audioPlayer = audioPlayer
         self.manager = manager
