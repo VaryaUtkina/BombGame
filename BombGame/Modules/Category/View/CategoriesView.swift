@@ -10,7 +10,7 @@ import SwiftUI
 struct CategoriesView: View {
     @Environment(\.dismiss) var dismiss
     
-    let categories: [Category] = CategoriesManager.shared.getAllCategories()
+    let categories: [Category] = DataManager.shared.getAllCategories()
     
     var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 23),
