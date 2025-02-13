@@ -31,11 +31,11 @@ struct MainView: View {
                     
                     VStack {
                         NavigationLink(destination: GameView()) {
-                            MainButtonView(text: "Старт игры")
+                            MainButton(text: "Старт игры")
                         }
                         
                         NavigationLink(destination: CategoriesView()) {
-                            MainButtonView(text: "Категории")
+                            MainButton(text: "Категории")
                         }
                     }
                     .padding(.horizontal, 23)
