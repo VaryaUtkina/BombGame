@@ -10,7 +10,7 @@ import Foundation
 final class CategoriesViewModel: ObservableObject {
     @Published var isHelpPresented = false
     
-    let categories = CategoriesManager.shared.getAllCategories()
+    let categories = DataManager.shared.getAllCategories()
     
     func toggleHelp() {
         isHelpPresented.toggle()

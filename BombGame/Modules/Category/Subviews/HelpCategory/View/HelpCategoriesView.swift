@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HelpCategoriesView: View {
     
-    private let categories: [Category] = CategoriesManager.shared.getAllCategories()
+    private let categories: [Category] = DataManager.shared.getAllCategories()
     
     private var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 23),

@@ -8,7 +8,7 @@
 import Foundation
 
 final class CategoryViewModel: ObservableObject {
-    let manager = CategoriesManager.shared
+    private let manager = DataManager.shared
     let category: Category
     
     @Published var isActive: Bool
