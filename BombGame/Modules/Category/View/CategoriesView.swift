@@ -10,9 +10,9 @@ import SwiftUI
 struct CategoriesView: View {
     @Environment(\.dismiss) var dismiss
     
-    let categories: [Category] = CategoriesManager.shared.getAllCategories()
+    private let categories: [Category] = CategoriesManager.shared.getAllCategories()
     
-    var columns: [GridItem] = [
+    private var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 23),
         GridItem(.flexible())
     ]
@@ -49,7 +49,7 @@ struct CategoriesView: View {
             ToolbarItem(placement: .principal) {
                 Text("Категории")
                     .font(Font.customFont(size: 30).weight(.black))
-                    .foregroundStyle(Colors.TextColors.primary)
+                    .foregroundStyle(Color.primaryText)
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Image(systemName: "questionmark.circle.fill")
