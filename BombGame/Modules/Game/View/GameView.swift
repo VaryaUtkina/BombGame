@@ -12,7 +12,7 @@ struct GameView: View {
     @StateObject private var viewModel = GameViewModel(
         model: GameModel(),
         audioPlayer: AudioPlayer(),
-        manager: CategoriesManager.shared
+        manager: DataManager.shared
     )
     @Environment(\.dismiss) private var dismiss
     
