@@ -14,6 +14,7 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                // TODOO change correct color
                 Color(red: 255/255, green: 250/255, blue: 94/255)
                     .ignoresSafeArea()
                 
@@ -22,14 +23,8 @@ struct MainView: View {
                     .ignoresSafeArea()
                 
                 VStack(spacing: 70) {
-                    VStack {
-                        Text("ИГРА ДЛЯ КОМПАНИИ")
-                            .font(Font.customFont(size: 28).weight(.black))
-                        Text("БОМБА")
-                            .font(Font.customFont(size: 48).weight(.black))
-                    }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .foregroundStyle(Colors.TextColors.primary)
+                    TitleTextView(topText: "ИГРА ДЛЯ КОМПАНИИ",
+                                  bottomText: "БОМБА")
                     
                     Image(.mainbomb)
                         .resizable()
@@ -61,3 +56,5 @@ struct MainView: View {
 #Preview {
     MainView()
 }
+
+
