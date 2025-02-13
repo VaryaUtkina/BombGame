@@ -11,6 +11,8 @@ final class CategoriesManager {
     static let shared = CategoriesManager()
     
     private var selectedCategories: Set<Category> = []
+    private var questionQueue: [String] = []
+    private var punishmentQueue: [String] = []
     
     private init() {}
     
@@ -31,8 +33,49 @@ final class CategoriesManager {
     }
     
     func getQuestion() -> String {
-        "Это заглушка для тестов с длинной строки 51 символ."
+        if questionQueue.isEmpty {
+            makeQuestionsQueue()
+        }
+        return questionQueue.removeLast()
     }
+    
+    func getPunishments() -> String {
+        if punishmentQueue.isEmpty {
+            punishmentQueue = punishments.shuffled()
+        }
+        return punishmentQueue.removeLast()
+    }
+    
+    private func makeQuestionsQueue() {
+        (selectedCategories.isEmpty ? allCategories : Array(selectedCategories)).forEach { category in
+            questionQueue += category.questions
+        }
+        questionQueue = questionQueue.shuffled()
+    }
+    
+    private var punishments: [String] = [
+        "Признайся в любви на корявом французском тому, кто справа",
+        "Пройди два круга по комнате, изображая курицу",
+        "Расскажи, что ты делал вчера, голосом старого ковбоя",
+        "Опиши того, кто слева, тремя словами на букву \"П\"",
+        "Покажи танец Джона Траволты из \"Криминального чтива\"",
+        "Зажми нос и произнеси торжественную поздравительную речь",
+        "Обними каждого участника и прихрюкивай",
+        "Покажи актера, который переигрывает",
+        "Сделай зарядку, приговаривая \"Вот так вот\"",
+        "Окажи знаки внимания тому, кто напротив, используя только жесты и звуки",
+        "Пройдись по комнате, как по подиуму, с самым серьезным выражением лица",
+        "Изобрази популярного актера или персонажа, пока участники не угадают, кто это",
+        "Позволь обмотать себя туалетной бумагой с ног до головы",
+        "Сказать тому, кто справа, три самых нелепых \"почему я тебя люблю\"",
+        "Каждого погладь по голове",
+        "В течение 30 секунд восхищайся любым предметом, как невероятным изобретением",
+        "Проведи экскурсию по комнате, представляя, что это музей удивительных фактов",
+        "В течение 30 секунд танцуй, используя только мимику лица",
+        "Погадай на ладони тому, кто слева, предвещая ему нелепые события",
+        "В течение 30 секунд помассируй плечи тому, кто справа",
+        "В течение 30 секунд говори на вымышленном языке, смотря прямо в глаза тому, кто напротив"
+    ]
     
     private let allCategories: [Category] = [
         Category(
