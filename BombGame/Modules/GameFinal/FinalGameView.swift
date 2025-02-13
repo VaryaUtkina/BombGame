@@ -20,22 +20,23 @@ struct FinalGameView: View {
             
             Spacer()
             
-//            Text(viewModel.currentPunishment?.text ?? "")
-//                .multilineTextAlignment(.center)
-//                .font(Font.customFont(size: 28).weight(.semibold))
-//                .foregroundStyle(Colors.TextColors.primary)
-//                .padding(.horizontal, 23.5)
-//                .transition(.opacity)
+            Text(viewModel.currentPunishment)
+                .multilineTextAlignment(.center)
+                .font(Font.customFont(size: 28).weight(.semibold))
+                .foregroundStyle(Colors.TextColors.primary)
+                .padding(.horizontal, 23.5)
+                .transition(.opacity)
             
             
             VStack(spacing: 16) {
                 ButtonView(title: viewModel.punishmentTitle) {
                     withAnimation {
-//                        viewModel.getAnotherPunishment()
+                        viewModel.getAnotherPunishment()
                     }
                 }
+                
                 ButtonView(title: viewModel.resetTitle) {
-                    // TODO: - реализовать action
+                    // TODO: - возврат на GameView()
                 }
             }
             .padding(.bottom, 16)

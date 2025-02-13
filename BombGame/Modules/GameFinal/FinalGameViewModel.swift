@@ -8,24 +8,19 @@
 import Foundation
 
 final class FinalGameViewModel: ObservableObject {
-//    @Published var punishments: [Punishment]
-//    @Published var currentPunishment: Punishment?
+    @Published var currentPunishment: String
     
     let punishmentTitle = "Другое задание"
     let resetTitle = "Начать заново"
     let navTitle = "Конец игры"
     
-//    init(punishments: [Punishment] = Punishment.getPunishmentList()) {
-//        self.punishments = punishments
-//        self.currentPunishment = punishments.first
-//    }
-//    
-//    func getAnotherPunishment() {
-//        if punishments.isEmpty {
-//            punishments = Punishment.getPunishmentList()
-//        } else {
-//            punishments.removeFirst()
-//        }
-//        currentPunishment = punishments.first
-//    }
+    private let dataManager = DataManager.shared
+    
+    init() {
+        currentPunishment = dataManager.getPunishments()
+    }
+    
+    func getAnotherPunishment() {
+        currentPunishment = dataManager.getPunishments()
+    }
 }
