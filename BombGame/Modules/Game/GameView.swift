@@ -6,8 +6,23 @@
 //
 
 import SwiftUI
+import Lottie
 
-struct GameViewStart: View {
+struct GameView: View {
+    @StateObject private var viewModel = GameViewModel(model: GameModel())
+    
+    private var topTextFont: Font {
+        viewModel.isGameLaunched
+        ? Font.customFont(size: 28).weight(.black)
+        : Font.customFont(size: 28).weight(.medium)
+    }
+    
+    private var playbackMode: LottiePlaybackMode {
+        viewModel.isGameLaunched
+        ? .playing(.fromProgress(0, toProgress: 1, loopMode: .playOnce))
+        : .paused(at: .currentFrame)
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -20,30 +35,34 @@ struct GameViewStart: View {
                 
                 
                 VStack {
-                    Text("Нажмите \"Запустить\" чтобы начать игру")
+                    Text(viewModel.topText)
                         .multilineTextAlignment(.center)
-                        .font(Font.customFont(size: 28).weight(.medium))
+                        .font(topTextFont)
                         .foregroundStyle(Colors.TextColors.primary)
                     
-                    Spacer()
-                    
+                    LottieView(animation: .named(viewModel.model.texts.animationName))
+                        .animationSpeed(viewModel.animationSpeed)
+                    .playbackMode(playbackMode)
+                    .opacity(viewModel.isGameLaunched ? 1 : 0)
+
                     Button {
-                        // TODO: - запустить игру
+                        viewModel.startGame()
                     } label: {
-                        Text("Запустить")
+                        Text(viewModel.model.texts.launch)
                             .font(Font.customFont(size: 20).weight(.bold))
                             .foregroundStyle(Colors.TextColors.primary)
                     }
                     .frame(maxWidth: .infinity, minHeight: 55)
                     .background(Colors.ComponentsColors.gameViewButton)
                     .clipShape(.rect(cornerRadius: 10))
+                    .opacity(viewModel.isGameLaunched ? 0 : 1)
                 }
                 .padding(.horizontal, 22.5)
                 .padding(.bottom, 28)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("Игра")
+                    Text(viewModel.model.texts.title)
                         .font(Font.customFont(size: 30).weight(.black))
                         .foregroundStyle(Colors.TextColors.primary)
                 }
@@ -53,5 +72,5 @@ struct GameViewStart: View {
 }
 
 #Preview {
-    GameViewStart()
+    GameView()
 }
