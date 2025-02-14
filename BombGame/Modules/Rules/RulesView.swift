@@ -20,7 +20,7 @@ struct RulesView: View {
                 .scaledToFill()
                 .ignoresSafeArea()
             
-            VStack {
+            VStack(spacing: 10) {
                 Spacer()
                 TitleTextView(topText: "Игра для компании",
                               bottomText: "Бомба")
@@ -30,12 +30,12 @@ struct RulesView: View {
                     RoundedRectangle(cornerRadius: 40)
                         .foregroundStyle(.categoryCellBg)
                     //
-                        .frame(height: 600)
+                        .frame(height: 640)
                     
                     Image(.mainbackgroundShape)
                         .resizable()
                         .scaledToFill()
-                        .frame(height: 600)
+                        .frame(height: 640)
                         .clipShape(RoundedRectangle(cornerRadius: 40))
 //                        .padding(.horizontal, 20)
                         .opacity(0.5)
@@ -78,12 +78,14 @@ struct RulesView: View {
                                                     .font(Font.customFont(size: 12).weight(.regular))
                                                     
                                             }
+                                            .frame(maxWidth: .infinity)
                                     }
                                     .padding(.horizontal, 20)
                                 }
                             }
                         }
                         .padding(.horizontal, 20)
+                        .padding(.bottom, 25)
                         
                     }
                     .padding(.horizontal, 10)
