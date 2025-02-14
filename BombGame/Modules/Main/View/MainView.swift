@@ -16,6 +16,16 @@ struct MainView: View {
                     .resizable()
                 
                 VStack(spacing: 70) {
+                    HStack {
+                        NavigationLink(destination: SettingsView()) {
+                            Image("SettingsGear")
+                                .resizable()
+                                .frame(width: 35, height: 35)
+                        }
+                        Spacer()
+                    }
+                    .padding(.horizontal, 30)
+                    
                     VStack {
                         Text("ИГРА ДЛЯ КОМПАНИИ")
                             .font(Font.customFont(size: 28).weight(.black))

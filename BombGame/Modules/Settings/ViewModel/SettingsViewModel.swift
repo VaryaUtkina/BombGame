@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+final class SettingsViewModel: ObservableObject {
+    private let manager = SettingsManager()
+    
+    
+}
