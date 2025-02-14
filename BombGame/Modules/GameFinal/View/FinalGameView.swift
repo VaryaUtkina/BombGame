@@ -8,17 +8,22 @@
 import SwiftUI
 
 struct FinalGameView: View {
-    @StateObject private var viewModel = FinalGameViewModel()
+    @StateObject private var viewModel = FinalGameViewModel(
+        model: FinalGameModel(),
+        manager: DataManager.shared
+    )
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         BackgroundView {
+            Spacer(minLength: 4)
+            
             Image(.explosion)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 249, height: 300)
-                .padding(.top, 40)
+                .frame(maxHeight: 370)
             
-            Spacer()
+            Spacer(minLength: 4)
             
             Text(viewModel.currentPunishment)
                 .multilineTextAlignment(.center)
@@ -26,6 +31,7 @@ struct FinalGameView: View {
                 .foregroundStyle(Colors.TextColors.primary)
                 .padding(.horizontal, 23.5)
                 .transition(.opacity)
+                .frame(minHeight: 170)
             
             
             VStack(spacing: 16) {
@@ -36,7 +42,8 @@ struct FinalGameView: View {
                 }
                 
                 ButtonView(title: viewModel.resetTitle) {
-                    // TODO: - возврат на GameView()
+                    // TODO: - не работает, пока нет навигации
+                    dismiss()
                 }
             }
             .padding(.bottom, 16)
