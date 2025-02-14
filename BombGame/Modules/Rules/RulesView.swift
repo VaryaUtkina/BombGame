@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct RulesView: View {
+    @StateObject var viewModel = RulesViewModel()
+    
     var body: some View {
         
         ZStack {
             Color.mainBackground
             Image(.mainbackgroundShape)
                 .resizable()
-                
+            
             VStack {
                 Spacer()
                 TitleTextView(topText: "Игра для компании",
@@ -26,25 +28,53 @@ struct RulesView: View {
                         .foregroundStyle(.categoryCellBg)
                     
                     Image(.mainbackgroundShape)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 600)
-                            .clipShape(RoundedRectangle(cornerRadius: 40))
-                            .opacity(0.5)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 600)
+                        .clipShape(RoundedRectangle(cornerRadius: 40))
+                        .opacity(0.5)
                     
                     VStack(spacing: 10) {
+                        RoundedRectangle(cornerRadius: 25)
+                            .frame(width: 68 ,height: 3)
                         Text("Правила игры")
-                            .font(.title)
-                        Text("Все игроки становятся в круг.")
-                        Text("Первый игрок берет телефон и нажимает кнопку:")
-                        Text("На экране появляется вопрос “Назовите Фрукт”.")
-                        Text("Игрок отвечает на вопрос и после правильного ответа передает телефон следующему игроку.")
-                        Text("Игроки по кругу отвечают на один и тот же вопрос до тех пор, пока не взорвется бомба.")
-                        Text("Проигравшим считается тот, в чьих руках взорвалась бомба.")
-                        Text("Если выбран режим игры “С Заданиями”, то проигравший выполняет задание.")
+                            .font(Font.customFont(size: 32).weight(.heavy))
+                            .frame(maxWidth: .infinity)
+                        
+                        VStack(alignment: .leading, spacing: 10) {
+                            ForEach(viewModel.rules) { rule in
+                                HStack(spacing: 10) {
+                                    Circle()
+                                        .frame(width: 29, height: 29)
+                                        .foregroundColor(.categorySheetBg)
+                                        .overlay {
+                                            Text(rule.number)
+                                                .font(Font.customFont(size: 16).weight(.heavy))
+                                        }
+                                    Text(rule.text)
+                                        .font(Font.customFont(size: 20).weight(.medium))
+                                        
+                                }
+                                if rule.showRectangle {
+                                    HStack {
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .frame(width: 167, height: 27)
+                                            .foregroundColor(Color.gray)
+                                            .overlay {
+                                                Text("Start")
+                                            }
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                }
+                            }
+                        }
                     }
-                }
+                    .padding(.horizontal, 30)
+                    .font(Font.customFont(size: 20).weight(.medium))
                     
+                    Spacer()
+                }
+                
             }
         }
         .ignoresSafeArea()
