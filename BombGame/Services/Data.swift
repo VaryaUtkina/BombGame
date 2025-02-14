@@ -8,6 +8,15 @@
 import Foundation
 
 struct Data {
+    var settings: Settings = Settings(
+        gameTime: .medium,
+        backgroundMusic: .music1,
+        tickMusic: .music1,
+        explosionMusic: .music1,
+        vibrationEnable: true,
+        punishmentsEnable: true
+    )
+    
     let punishments: [String] = [
         "Признайся в любви на корявом французском тому, кто справа",
         "Пройди два круга по комнате, изображая курицу",
