@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CategoriesView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var categoriesViewModel = CategoriesViewModel()
+    @StateObject private var viewModel = CategoriesViewModel()
     
     private let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 23),
@@ -24,7 +24,7 @@ struct CategoriesView: View {
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 34) {
-                    ForEach(categoriesViewModel.categories) { category in
+                    ForEach(viewModel.categories) { category in
                         CategoryView(category: category)
                             .frame(height: 150)
                             .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
@@ -51,13 +51,13 @@ struct CategoriesView: View {
                     .foregroundStyle(Color.primaryText)
             }
             ToolbarItem(placement: .topBarTrailing) {
-                Button(action: categoriesViewModel.toggleHelp) {
+                Button(action: viewModel.toggleHelp) {
                     Image(systemName: "questionmark.circle.fill")
                         .resizable()
                         .frame(width: 35, height: 35)
                         .foregroundStyle(Color.categorySheetBg)
                 }
-                .sheet(isPresented: $categoriesViewModel.isHelpPresented) {
+                .sheet(isPresented: $viewModel.isHelpPresented) {
                     HelpCategoriesView()
                         .presentationDetents([.fraction(0.87)])
                 }
