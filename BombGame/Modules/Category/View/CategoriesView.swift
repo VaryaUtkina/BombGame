@@ -9,10 +9,9 @@ import SwiftUI
 
 struct CategoriesView: View {
     @Environment(\.dismiss) var dismiss
+    @StateObject private var viewModel = CategoriesViewModel()
     
-    let categories: [Category] = DataManager.shared.getAllCategories()
-    
-    var columns: [GridItem] = [
+    private let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 23),
         GridItem(.flexible())
     ]
@@ -25,7 +24,7 @@ struct CategoriesView: View {
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 34) {
-                    ForEach(categories) { category in
+                    ForEach(viewModel.categories) { category in
                         CategoryView(category: category)
                             .frame(height: 150)
                             .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
@@ -49,13 +48,19 @@ struct CategoriesView: View {
             ToolbarItem(placement: .principal) {
                 Text("Категории")
                     .font(Font.customFont(size: 30).weight(.black))
-                    .foregroundStyle(Colors.TextColors.primary)
+                    .foregroundStyle(Color.primaryText)
             }
             ToolbarItem(placement: .topBarTrailing) {
-                Image(systemName: "questionmark.circle.fill")
-                    .resizable()
-                    .frame(width: 35, height: 35)
-                    .foregroundStyle(Color.categorySheetBg)
+                Button(action: viewModel.toggleHelp) {
+                    Image(systemName: "questionmark.circle.fill")
+                        .resizable()
+                        .frame(width: 35, height: 35)
+                        .foregroundStyle(Color.categorySheetBg)
+                }
+                .sheet(isPresented: $viewModel.isHelpPresented) {
+                    HelpCategoriesView()
+                        .presentationDetents([.fraction(0.87)])
+                }
             }
         }
     }
