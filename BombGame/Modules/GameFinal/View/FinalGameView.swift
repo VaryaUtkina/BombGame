@@ -55,6 +55,7 @@ struct FinalGameView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
