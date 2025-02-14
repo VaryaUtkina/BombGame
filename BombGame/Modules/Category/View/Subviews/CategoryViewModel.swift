@@ -10,7 +10,7 @@ import Combine
 
 final class CategoryViewModel: ObservableObject {
     let objectWillChange = ObservableObjectPublisher()
-    let manager = CategoriesManager.shared
+    let manager = DataManager.shared
     let category: Category
     
     var isActive: Bool
