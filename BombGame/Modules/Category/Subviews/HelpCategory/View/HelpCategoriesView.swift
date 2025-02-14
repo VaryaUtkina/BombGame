@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct HelpCategoriesView: View {
-    
-    private let categories: [Category] = DataManager.shared.getAllCategories()
+    private let helpCategoriesViewModel = HelpCategoriesViewModel()
     
     private var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 23),
@@ -52,7 +51,7 @@ struct HelpCategoriesView: View {
                     .padding(.top, 18)
                 
                 LazyVGrid(columns: columns, spacing: 34) {
-                    ForEach(categories[..<min(4, categories.count)]) { category in
+                    ForEach(helpCategoriesViewModel.categories[..<min(4, helpCategoriesViewModel.categories.count)]) { category in
                         CategoryView(category: category, blind: true)
                             .frame(height: 150)
                             .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
