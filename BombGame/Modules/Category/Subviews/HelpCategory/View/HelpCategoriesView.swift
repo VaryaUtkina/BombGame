@@ -10,7 +10,7 @@ import SwiftUI
 struct HelpCategoriesView: View {
     private let helpCategoriesViewModel = HelpCategoriesViewModel()
     
-    private var columns: [GridItem] = [
+    private let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 23),
         GridItem(.flexible())
     ]

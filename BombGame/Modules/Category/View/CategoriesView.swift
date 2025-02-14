@@ -11,7 +11,7 @@ struct CategoriesView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var categoriesViewModel = CategoriesViewModel()
     
-    private var columns: [GridItem] = [
+    private let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 23),
         GridItem(.flexible())
     ]
