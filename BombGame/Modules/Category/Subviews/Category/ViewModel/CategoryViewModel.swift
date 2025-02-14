@@ -14,10 +14,10 @@ final class CategoryViewModel: ObservableObject {
     @Published var isActive: Bool
     @Published var showCheckmark: Bool
     
-    init(category: Category, blind: Bool = false) {
+    init(category: Category, isBlind: Bool = false) {
         self.category = category
-        self.isActive = manager.isActive(category) && !blind
-        self.showCheckmark = manager.isActive(category) || blind
+        self.isActive = manager.isActive(category) && !isBlind
+        self.showCheckmark = manager.isActive(category) || isBlind
     }
     
     func toggleActive() {

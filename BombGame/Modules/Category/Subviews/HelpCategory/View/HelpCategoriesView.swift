@@ -52,7 +52,7 @@ struct HelpCategoriesView: View {
                 
                 LazyVGrid(columns: columns, spacing: 34) {
                     ForEach(helpCategoriesViewModel.categories[..<min(4, helpCategoriesViewModel.categories.count)]) { category in
-                        CategoryView(category: category, blind: true)
+                        CategoryView(category: category, isBlind: true)
                             .frame(height: 150)
                             .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
                             .disabled(true)
