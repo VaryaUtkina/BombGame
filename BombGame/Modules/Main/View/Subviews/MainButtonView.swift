@@ -1,5 +1,5 @@
 //
-//  MainButtonView.swift
+//  MainButton.swift
 //  BombGame
 //
 //  Created by Sergey Zakurakin on 2/12/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MainButtonView: View {
+struct MainButton: View {
     var text: String
     
     var body: some View {
@@ -23,5 +23,5 @@ struct MainButtonView: View {
 }
 
 #Preview {
-    MainButtonView(text: "Старт игры")
+    MainButton(text: "Старт игры")
 }

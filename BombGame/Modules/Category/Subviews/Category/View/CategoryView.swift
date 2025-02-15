@@ -45,11 +45,11 @@ struct CategoryView: View {
         
     }
     
-    init(category: Category, showCheckmark: Bool = false) {
+    init(category: Category, isBlind: Bool = false) {
         _categoryVM = StateObject(
             wrappedValue: CategoryViewModel(
                 category: category,
-                showCheckmark: showCheckmark
+                isBlind: isBlind
             )
         )
     }
