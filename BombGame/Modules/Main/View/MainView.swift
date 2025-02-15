@@ -14,19 +14,31 @@ struct MainView: View {
         NavigationStack {
             ZStack {
                 Color(.mainBackground)
+                    .ignoresSafeArea()
                 
                 Image(.mainbackgroundShape)
                     .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
                 
-                VStack(spacing: 60) {
+                VStack() {
+                    Spacer(minLength: 50)
+                    
                     TitleTextView(topText: viewModel.texts.title,
                                   bottomText: viewModel.texts.gameName)
                     
+                    Spacer(minLength: 20)
+                    
                     Image(.mainbomb)
                         .resizable()
-                        .frame(width: 274, height: 300)
+                        .scaledToFit()
+                        .frame(maxHeight: 300)
+                        .padding(.horizontal, 40)
+                        .padding(.vertical, 10)
                     
-                    VStack {
+                    Spacer(minLength: 20)
+                    
+                    VStack(spacing: 10) {
                         NavigationLink(destination: GameView()) {
                             MainButton(text: viewModel.texts.startGame)
                         }
@@ -35,11 +47,16 @@ struct MainView: View {
                             MainButton(text: viewModel.texts.categories)
                         }
                     }
+
                     .padding(.horizontal, 23)
+                    
+                    Spacer(minLength: 40)
                 }
                 .padding(.top, 60)
+                .padding(.bottom, 70)
             }
-            .ignoresSafeArea()
+            
+            
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
