@@ -18,6 +18,10 @@ final class DataManager {
     
     private init() {}
     
+    func getSettings() -> Settings {
+        data.settings
+    }
+    
     func getAllCategories() -> [Category] {
         data.allCategories
     }
