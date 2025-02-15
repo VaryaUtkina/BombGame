@@ -17,6 +17,7 @@ struct Colors {
         static let categorySheetBg = Color.categorySheetBg
         static let categoryCellBg = Color.categoryCellBg
         static let SelectedCellBg = Color.selectedCellBg
+        static let mainBackgroundTwo = Color.mainBackgroundTwo
     }
     
     struct TextColors {
