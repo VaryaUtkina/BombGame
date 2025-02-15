@@ -30,7 +30,9 @@
 ---
 
 <h2 id="video">:movie_camera: Готов увидеть, что тебя ждет?</h2>
-
+<p align="center">
+<img align="center" src="Assets/preview.gif" />
+</p>
 
 [🔝 Назад к оглавлению](#challenge-1-bomb-app-)
 

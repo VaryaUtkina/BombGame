@@ -1,12 +1,18 @@
 //
-//  MainViewViewModel.swift
+//  MainViewModel.swift
 //  BombGame
 //
-//  Created by Варвара Уткина on 09.02.2025.
+//  Created by lorenc_D_K on 15.02.2025.
 //
 
 import Foundation
 
-final class MainViewModel {
+final class MainViewModel: ObservableObject {
+    @Published var isShowingRules = false
+    let texts: MainTexts
+    
+    init(model: MainTexts) {
+        texts = model
+    }
     
 }

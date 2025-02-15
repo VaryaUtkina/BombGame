@@ -8,32 +8,19 @@
 import SwiftUI
 
 struct MainView: View {
+    @StateObject private var viewModel = MainViewModel(model: MainTexts())
+    
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(red: 255/255, green: 250/255, blue: 94/255)
+                Color(.mainBackground)
+                
                 Image(.mainbackgroundShape)
                     .resizable()
                 
-                VStack(spacing: 70) {
-                    HStack {
-                        NavigationLink(destination: SettingsView()) {
-                            Image("SettingsGear")
-                                .resizable()
-                                .frame(width: 35, height: 35)
-                        }
-                        Spacer()
-                    }
-                    .padding(.horizontal, 30)
-                    
-                    VStack {
-                        Text("ИГРА ДЛЯ КОМПАНИИ")
-                            .font(Font.customFont(size: 28).weight(.black))
-                        Text("БОМБА")
-                            .font(Font.customFont(size: 48).weight(.black))
-                    }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .foregroundStyle(Colors.TextColors.primary)
+                VStack(spacing: 60) {
+                    TitleTextView(topText: viewModel.texts.title,
+                                  bottomText: viewModel.texts.gameName)
                     
                     Image(.mainbomb)
                         .resizable()
@@ -41,21 +28,53 @@ struct MainView: View {
                     
                     VStack {
                         NavigationLink(destination: GameView()) {
-                            MainButton(text: "Старт игры")
+                            MainButton(text: viewModel.texts.startGame)
                         }
                         
                         NavigationLink(destination: CategoriesView()) {
-                            MainButton(text: "Категории")
+                            MainButton(text: viewModel.texts.categories)
                         }
                     }
                     .padding(.horizontal, 23)
                 }
+                .padding(.top, 60)
             }
             .ignoresSafeArea()
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        viewModel.isShowingRules = true
+                    } label: {
+                        Image(systemName: viewModel.texts.questionMark)
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                            .foregroundStyle(Color.red)
+                            .background(
+                                Circle()
+                                    .frame(width: 35, height: 35)
+                                    .foregroundStyle(.white)
+                            )
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarLeading) {
+                    // Change to SettingsView()
+                    NavigationLink(destination: EmptyView()) {
+                        Image(viewModel.texts.gear)
+                            .resizable()
+                            .frame(width: 35, height: 35)
+                            .foregroundStyle(Color.primary)
+                    }
+                }
+            }
+            .sheet(isPresented: $viewModel.isShowingRules) {
+                RulesView()
+                    .presentationDetents([.fraction(0.78)])
+            }
         }
     }
 }
-
 #Preview {
     MainView()
 }
