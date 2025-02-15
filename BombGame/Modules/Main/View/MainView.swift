@@ -13,9 +13,7 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // TODOO change correct color
-//                Color(red: 255/255, green: 250/255, blue: 94/255)
-                Color(.mainBackgroundTwo)
+                Color(.mainBackground)
 
                 Image(.mainbackgroundShape)
                     .resizable()
@@ -50,16 +48,21 @@ struct MainView: View {
                     } label: {
                         Image(systemName: "questionmark.circle.fill")
                             .resizable()
-                            .frame(width: 35, height: 35)
+                            .frame(width: 32, height: 32)
                             .foregroundStyle(Color.red)
+                            .background(
+                                Circle()
+                                    .frame(width: 35, height: 35)
+                                    .foregroundStyle(.white)
+                            )
                     }
                 }
                 
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        isShowingRules = true
+                       // SettingsView()
                     } label: {
-                        Image(systemName: "gear")
+                        Image("gear")
                             .resizable()
                             .frame(width: 35, height: 35)
                             .foregroundStyle(Color.primary)
