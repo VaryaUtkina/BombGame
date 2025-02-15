@@ -12,15 +12,17 @@ final class DropdownMenuViewModel: ObservableObject {
     @Published var selectedOption = ""
     let options: [String]
     let manager = SettingsManager.shared
+    let type: any StringType.Type
     
     init<T: StringType>(_ type: T.Type) {
+        self.type = type
         options = type.allCases.map { $0.rawValue }
         
         let parametrs = Mirror(reflecting: manager.getSettings()).children
         
         for parametr in parametrs {
-            if let item = parametr as? T {
-                print("item:", item)
+            if let item = parametr.value as? T {
+                selectedOption = item.rawValue
             }
         }
     }
@@ -28,4 +30,6 @@ final class DropdownMenuViewModel: ObservableObject {
     func pressed() {
         isExpanded.toggle()
     }
+    
+    
 }

@@ -49,7 +49,6 @@ struct DropdownMenuView: View {
                 .shadow(radius: 3)
             }
         }
-        .padding()
     }
 }
 
@@ -58,4 +57,3 @@ struct ContentView: View {
         DropdownMenuView(viewModel: DropdownMenuViewModel(Settings.BackgroundMusic.self))
     }
 }
-

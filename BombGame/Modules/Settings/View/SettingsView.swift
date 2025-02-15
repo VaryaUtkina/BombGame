@@ -16,62 +16,71 @@ struct SettingsView: View {
         GridItem(.flexible())
     ]
     
-    //DEBUG
-    @State private var isExpanded = false
-    @State private var selectedOption = "Выберите"
-    let options = ["Apple", "Banana", "Cherry"]
-    //DEBUG
-    
     var body: some View {
         BackgroundView {
-            VStack(spacing: 18) {
-                SettingsSection {
-                    VStack {
-                        HStack {
-                            Text("ВРЕМЯ ИГРЫ")
-                                .font(Font.customFont(size: 20).weight(.bold))
-                                .foregroundStyle(Color.primaryText)
-                            Spacer()
-                        }
-                        
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            ForEach(viewModel.durations, id: \.self) { duration in
-                                Button(action: {viewModel.changeDuration(duration)}) {
-                                    Text(duration)
-                                        .font(
-                                            Font
-                                                .customFont(size: 18)
-                                                .weight(.black)
-                                        )
-                                        .foregroundStyle(
-                                            viewModel.currentDuration == duration
-                                            ? Color.primaryText
-                                            : Color.white
-                                        )
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 40)
+            ScrollView {
+                VStack(spacing: 18) {
+                    SettingsSection {
+                        VStack {
+                            HStack {
+                                Text("ВРЕМЯ ИГРЫ")
+                                    .font(Font.customFont(size: 20).weight(.bold))
+                                    .foregroundStyle(Color.primaryText)
+                                Spacer()
+                            }
+                            
+                            LazyVGrid(columns: columns, spacing: 20) {
+                                ForEach(viewModel.durations, id: \.self) { duration in
+                                    Button(action: {viewModel.changeDuration(duration)}) {
+                                        Text(duration)
+                                            .font(
+                                                Font
+                                                    .customFont(size: 18)
+                                                    .weight(.black)
+                                            )
+                                            .foregroundStyle(
+                                                viewModel.currentDuration == duration
+                                                ? Color.primaryText
+                                                : Color.white
+                                            )
+                                            .frame(maxWidth: .infinity)
+                                            .frame(height: 40)
+                                    }
+                                    .background(viewModel.currentDuration == duration
+                                                ? Color.gameViewButton
+                                                : Color.primaryText
+                                    )
+                                    .clipShape(RoundedRectangle(cornerRadius: 15))
                                 }
-                                .background(viewModel.currentDuration == duration
-                                            ? Color.gameViewButton
-                                            : Color.primaryText
-                                )
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
                             }
                         }
+                        .padding(18)
                     }
-                    .padding(18)
-                }
-                
-                SettingsSection {
-                    DropdownMenuView(
-                        viewModel: DropdownMenuViewModel(
-                            Settings.BackgroundMusic.self
-                        )
-                    )
-                }
-                
-                SettingsSection {
-                    Text("test3")
+                    
+                    SettingsSection {
+                        VStack(spacing: 18) {
+                            DropdownMenuView(
+                                viewModel: DropdownMenuViewModel(
+                                    Settings.BackgroundMusic.self
+                                )
+                            )
+                            DropdownMenuView(
+                                viewModel: DropdownMenuViewModel(
+                                    Settings.TickMusic.self
+                                )
+                            )
+                            DropdownMenuView(
+                                viewModel: DropdownMenuViewModel(
+                                    Settings.ExplosionMusic.self
+                                )
+                            )
+                        }
+                        .padding()
+                    }
+                    
+                    SettingsSection {
+                        Text("test3")
+                    }
                 }
             }
             
