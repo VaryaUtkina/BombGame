@@ -10,12 +10,10 @@ import Foundation
 final class SettingsManager {
     static let shared = SettingsManager()
 
-    private var settings = DataManager.shared.getSettings()
+    private(set) var settings: Settings
     
-    private init() {}
-    
-    func getSettings() -> Settings {
-        settings
+    private init() {
+        settings = Settings.defaultSettings
     }
     
     func setGameTime(_ time: Settings.GameDuration) {

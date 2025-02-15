@@ -14,6 +14,15 @@ struct Settings {
     var explosionMusic: ExplosionMusic
     var vibrationEnable: Bool
     var punishmentsEnable: Bool
+    
+    static let defaultSettings = Settings(
+        gameDuration: .medium,
+        backgroundMusic: .music1,
+        tickMusic: .music1,
+        explosionMusic: .music1,
+        vibrationEnable: true,
+        punishmentsEnable: true
+    )
 }
 
 extension Settings {
