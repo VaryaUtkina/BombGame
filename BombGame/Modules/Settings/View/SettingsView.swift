@@ -9,14 +9,31 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var settingsViewModel = SettingsViewModel()
+    @StateObject private var viewModel = SettingsViewModel()
+    
+    private let columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 23),
+        GridItem(.flexible())
+    ]
     
     var body: some View {
         BackgroundView {
             VStack {
-                Text("Test1")
-                Text("Test2")
-                Text("Test3")
+                HStack {
+                    Text("ВРЕМЯ ИГРЫ")
+                        .font(Font.customFont(size: 20).weight(.bold))
+                        .foregroundStyle(Color.primaryText)
+                    Spacer()
+                }
+                .padding(18)
+                
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 34) {
+                        ForEach(viewModel.durations, id: \.self) { duration in
+                            Text("\(duration)")
+                        }
+                    }
+                }
             }
             .section()
         }
@@ -44,12 +61,12 @@ struct SettingsSectionViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity)
-            .background(Color.red)
-            
+            .background(Color.categoryCellBg)
+        
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color.green, lineWidth: 3)
+                    .stroke(Color.primaryText, lineWidth: 1)
             )
             .padding(10)
     }

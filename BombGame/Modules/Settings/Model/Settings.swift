@@ -17,31 +17,74 @@ struct Settings {
 }
 
 extension Settings {
-    enum GameDuration: Int, CaseIterable {
-        case short = 10
-        case medium = 30
-        case long = 60
+    enum GameDuration: String, CaseIterable {
+        case short = "Короткое"
+        case medium = "Среднее"
+        case long = "Длинное"
+        case random = "Случайное"
         
-        var random: GameDuration {
-            GameDuration.allCases.randomElement() ?? .short
+        var duration: Int {
+            switch self {
+            case .short:
+                10
+            case .medium:
+                30
+            case .long:
+                60
+            case .random:
+                Int.random(in: 10...60)
+            }
         }
     }
     
     enum BackgroundMusic: String, CaseIterable {
-        case music1 = "BackgroundMusic1"
-        case music2 = "BackgroundMusic2"
-        case music3 = "BackgroundMusic3"
+        case music1 = "Мелодия 1"
+        case music2 = "Мелодия 2"
+        case music3 = "Мелодия 3"
+        
+        var fileName: String {
+            switch self {
+            case .music1:
+                "background_music_1"
+            case .music2:
+                "background_music_2"
+            case .music3:
+                "background_music_3"
+            }
+        }
     }
     
     enum TickMusic: String, CaseIterable {
-        case music1 = "TickMusic1"
-        case music2 = "TickMusic2"
-        case music3 = "TickMusic3"
+        case music1 = "Часы 1"
+        case music2 = "Часы 2"
+        case music3 = "Часы 3"
+        
+        var fileName: String {
+            switch self {
+            case .music1:
+                "tick_music_1"
+            case .music2:
+                "tick_music_2"
+            case .music3:
+                "tick_music_3"
+            }
+        }
     }
     
     enum ExplosionMusic: String, CaseIterable {
-        case music1 = "ExplosionMusic1"
-        case music2 = "ExplosionMusic2"
-        case music3 = "ExplosionMusic3"
+        case music1 = "Взрыв 1"
+        case music2 = "Взрыв 2"
+        case music3 = "Взрыв 3"
+        
+        var fileName: String {
+            switch self {
+            case .music1:
+                "explosion_music_1"
+            case .music2:
+                "explosion_music_2"
+            case .music3:
+                "explosion_music_3"
+            }
+        }
     }
 }

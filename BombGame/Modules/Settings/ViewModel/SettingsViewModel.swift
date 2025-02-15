@@ -10,5 +10,6 @@ import Foundation
 final class SettingsViewModel: ObservableObject {
     private let manager = SettingsManager.shared
     
+    let durations = Settings.GameDuration.allCases.map{$0.rawValue}
     
 }
