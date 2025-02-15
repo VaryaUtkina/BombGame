@@ -45,7 +45,7 @@ struct RulesView: View {
                 }
                 .padding(.horizontal, 10)
             }
-                
+                .scrollIndicators(.hidden)
                 .frame(maxHeight: UIScreen.main.bounds.height * 0.70)
             }
     }
