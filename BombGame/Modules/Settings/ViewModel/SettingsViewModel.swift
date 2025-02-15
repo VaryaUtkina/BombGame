@@ -10,9 +10,11 @@ import Foundation
 final class SettingsViewModel: ObservableObject {
     private let manager = SettingsManager.shared
     
-    let durations = Settings.GameDuration.allCases.map{$0.rawValue}
-    
     @Published var currentDuration: String = SettingsManager.shared.getSettings().gameDuration.rawValue
+    @Published var isVibrationOn: Bool = SettingsManager.shared.getSettings().vibrationEnable
+    @Published var isPunishmentsOn: Bool = SettingsManager.shared.getSettings().punishmentsEnable
+    
+    let durations = Settings.GameDuration.allCases.map{ $0.rawValue }
     
     func changeDuration(_ duration: String) {
         for item in Settings.GameDuration.allCases {
@@ -22,6 +24,14 @@ final class SettingsViewModel: ObservableObject {
                 return
             }
         }
+    }
+    
+    func toggleVibration() {
+        manager.toggleVibration()
+    }
+    
+    func togglePunishments() {
+        manager.togglePunishments()
     }
     
 }

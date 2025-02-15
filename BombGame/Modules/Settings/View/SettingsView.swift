@@ -82,7 +82,26 @@ struct SettingsView: View {
                     }
                     
                     SettingsSection {
-                        Text("test3")
+                        VStack(spacing: 18) {
+                            HStack {
+                                Text("Вибрация")
+                                    .font(Font.customFont(size: 16).weight(.bold))
+                                    .foregroundStyle(Color.secondaryText)
+                                    .padding()
+                                
+                                Spacer()
+                                
+                                Toggle("", isOn: $viewModel.isVibrationOn)
+                                    .tint(Color.gameViewButton)
+                                    .padding(.trailing)
+//                                    .onChange(of: viewModel.isOn) {
+//                                        
+//                                    }
+                            }
+                            .background(Color.primaryText)
+                            .cornerRadius(15)
+                        }
+                        .padding()
                     }
                 }
             }

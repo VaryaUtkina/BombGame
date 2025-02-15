@@ -48,11 +48,11 @@ final class SettingsManager {
         }
     }
     
-    func enableVibration(_ enabled: Bool) {
-        settings.vibrationEnable = enabled
+    func toggleVibration() {
+        settings.vibrationEnable.toggle()
     }
     
-    func enablePunishments(_ enabled: Bool) {
-        settings.punishmentsEnable = enabled
+    func togglePunishments() {
+        settings.punishmentsEnable.toggle()
     }
 }
