@@ -22,11 +22,19 @@ struct GameView: View {
         : Font.customFont(size: 28).weight(.medium)
     }
     
+    private var playPauseButtonImage: String {
+        viewModel.isGamePaused ? viewModel.model.playImage : viewModel.model.pauseImage
+    }
+    
     private var playbackMode: LottiePlaybackMode {
-        guard viewModel.isGameLaunched, !viewModel.isGamePaused else {
+        switch (viewModel.isGameLaunched, viewModel.isGamePaused) {
+        case (false, _):
+            return .paused(at: .progress(0.1))
+        case (true, true):
             return .paused(at: .currentFrame)
+        case (true, false):
+            return .playing(.fromProgress(0, toProgress: 1, loopMode: .playOnce))
         }
-        return .playing(.fromProgress(0, toProgress: 1, loopMode: .playOnce))
     }
     
     var body: some View {
@@ -51,7 +59,6 @@ struct GameView: View {
                     LottieView(animation: .named(viewModel.model.texts.animationName))
                         .animationSpeed(viewModel.animationSpeed)
                         .playbackMode(playbackMode)
-                        .opacity(viewModel.isGameLaunched ? 1 : 0)
                     
                     Button {
                         viewModel.startGame()
@@ -80,6 +87,7 @@ struct GameView: View {
                 dismiss()
             } label: {
                 Image(.backArrow)
+                    .foregroundStyle(Colors.TextColors.primary)
             }
             
             Spacer()
@@ -93,8 +101,12 @@ struct GameView: View {
             Button {
                 viewModel.pauseGame()
             } label: {
-                Image(.pauseButton)
+                Image(systemName: playPauseButtonImage)
+                    .resizable()
+                    .frame(width: 27, height: 27)
+                    .foregroundStyle(Colors.TextColors.primary)
             }
+            .opacity(viewModel.isGameLaunched ? 1 : 0)
             
         }
     }
