@@ -83,23 +83,17 @@ struct SettingsView: View {
                     
                     SettingsSection {
                         VStack(spacing: 18) {
-                            HStack {
-                                Text("Вибрация")
-                                    .font(Font.customFont(size: 16).weight(.bold))
-                                    .foregroundStyle(Color.secondaryText)
-                                    .padding()
-                                
-                                Spacer()
-                                
-                                Toggle("", isOn: $viewModel.isVibrationOn)
-                                    .tint(Color.gameViewButton)
-                                    .padding(.trailing)
-//                                    .onChange(of: viewModel.isOn) {
-//                                        
-//                                    }
-                            }
-                            .background(Color.primaryText)
-                            .cornerRadius(15)
+                            ToggleStackView(
+                                toggleState: $viewModel.isVibrationOn,
+                                function: viewModel.toggleVibration,
+                                title: "Вибрация"
+                            )
+                            
+                            ToggleStackView(
+                                toggleState: $viewModel.isPunishmentsOn,
+                                function: viewModel.togglePunishments,
+                                title: "Игра с заданиями"
+                            )
                         }
                         .padding()
                     }
