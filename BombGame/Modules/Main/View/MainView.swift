@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var isShowingRules = false
+    @StateObject private var viewModel = MainViewModel(model: MainTexts())
     
     var body: some View {
         NavigationStack {
@@ -19,8 +19,8 @@ struct MainView: View {
                     .resizable()
                 
                 VStack(spacing: 60) {
-                    TitleTextView(topText: "ИГРА ДЛЯ КОМПАНИИ",
-                                  bottomText: "БОМБА")
+                    TitleTextView(topText: viewModel.texts.title,
+                                  bottomText: viewModel.texts.gameName)
                     
                     Image(.mainbomb)
                         .resizable()
@@ -28,11 +28,11 @@ struct MainView: View {
                     
                     VStack {
                         NavigationLink(destination: GameView()) {
-                            MainButton(text: "Старт игры")
+                            MainButton(text: viewModel.texts.startGame)
                         }
                         
                         NavigationLink(destination: CategoriesView()) {
-                            MainButton(text: "Категории")
+                            MainButton(text: viewModel.texts.categories)
                         }
                     }
                     .padding(.horizontal, 23)
@@ -44,9 +44,9 @@ struct MainView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        isShowingRules = true
+                        viewModel.isShowingRules = true
                     } label: {
-                        Image(systemName: "questionmark.circle.fill")
+                        Image(systemName: viewModel.texts.questionMark)
                             .resizable()
                             .frame(width: 32, height: 32)
                             .foregroundStyle(Color.red)
@@ -59,17 +59,16 @@ struct MainView: View {
                 }
                 
                 ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        // SettingsView()
-                    } label: {
-                        Image("gear")
+                    // Change to SettingsView()
+                    NavigationLink(destination: EmptyView()) {
+                        Image(viewModel.texts.gear)
                             .resizable()
                             .frame(width: 35, height: 35)
                             .foregroundStyle(Color.primary)
                     }
                 }
             }
-            .sheet(isPresented: $isShowingRules) {
+            .sheet(isPresented: $viewModel.isShowingRules) {
                 RulesView()
                     .presentationDetents([.fraction(0.78)])
             }
