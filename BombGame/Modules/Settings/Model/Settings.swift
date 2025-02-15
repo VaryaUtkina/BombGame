@@ -8,7 +8,7 @@
 import Foundation
 
 struct Settings {
-    var gameTime: GameTime
+    var gameDuration: GameDuration
     var backgroundMusic: BackgroundMusic
     var tickMusic: TickMusic
     var explosionMusic: ExplosionMusic
@@ -17,13 +17,13 @@ struct Settings {
 }
 
 extension Settings {
-    enum GameTime: Int, CaseIterable {
+    enum GameDuration: Int, CaseIterable {
         case short = 10
         case medium = 30
         case long = 60
         
-        var random: GameTime {
-            GameTime.allCases.randomElement() ?? .short
+        var random: GameDuration {
+            GameDuration.allCases.randomElement() ?? .short
         }
     }
     
@@ -44,5 +44,4 @@ extension Settings {
         case music2 = "ExplosionMusic2"
         case music3 = "ExplosionMusic3"
     }
-    
 }

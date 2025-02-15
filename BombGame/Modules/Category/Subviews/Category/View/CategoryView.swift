@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CategoryView: View {
-    @StateObject private var categoryViewModel: CategoryViewModel
+    @StateObject private var viewModel: CategoryViewModel
     
     var body: some View {
-        Button(action: categoryViewModel.toggleActive) {
+        Button(action: viewModel.toggleActive) {
             ZStack {
                 VStack {
                     HStack {
@@ -19,24 +19,24 @@ struct CategoryView: View {
                             .resizable()
                             .frame(width: 20, height: 20)
                             .foregroundStyle(Color.primaryText)
-                            .opacity(categoryViewModel.showCheckmark ? 1 : 0)
+                            .opacity(viewModel.showCheckmark ? 1 : 0)
                         Spacer()
                     }
                     Spacer()
                 }
                 
                 VStack {
-                    Image(categoryViewModel.category.imageName)
+                    Image(viewModel.category.imageName)
                         .resizable()
                         .scaledToFit()
-                    Text(categoryViewModel.category.title)
+                    Text(viewModel.category.title)
                         .font(Font.customFont(size: 16).weight(.black))
                         .foregroundStyle(Color.primaryText)
                 }
             }
             .padding(8)
         }
-        .background(categoryViewModel.isActive ? Color.selectedCellBg : Color.categoryCellBg)
+        .background(viewModel.isActive ? Color.selectedCellBg : Color.categoryCellBg)
         .clipShape(.rect(cornerRadius: 20))
         .overlay(
             RoundedRectangle(cornerRadius: 20)
@@ -46,7 +46,7 @@ struct CategoryView: View {
     }
     
     init(category: Category, isBlind: Bool = false) {
-        _categoryViewModel = StateObject(
+        _viewModel = StateObject(
             wrappedValue: CategoryViewModel(
                 category: category,
                 isBlind: isBlind

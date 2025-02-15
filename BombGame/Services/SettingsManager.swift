@@ -12,14 +12,14 @@ final class SettingsManager {
 
     private var settings = DataManager.shared.getSettings()
     
-    init() {}
+    private init() {}
     
     func getSettings() -> Settings {
         settings
     }
     
-    func setGameTime(_ time: Settings.GameTime) {
-        settings.gameTime = time
+    func setGameTime(_ time: Settings.GameDuration) {
+        settings.gameDuration = time
     }
     
     func setBackgroundMusic(_ music: Settings.BackgroundMusic) {
