@@ -12,6 +12,7 @@ final class AudioPlayer {
         audioPlayer?.isPlaying ?? false
     }
     private var audioPlayer: AVAudioPlayer?
+    private var backgroundAudioPlayer: AVAudioPlayer?
     
     func playSound(file: String, loopsNumber: Int) {
         if let path = Bundle.main.path(forResource: file, ofType: "mp3") {
@@ -28,9 +29,33 @@ final class AudioPlayer {
         }
     }
     
-    func play() { audioPlayer?.play() }
+    func playBackgroundSound(file: String) {
+        if let path = Bundle.main.path(forResource: file, ofType: "mp3") {
+           
+            do {
+                backgroundAudioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+                backgroundAudioPlayer?.numberOfLoops = -1
+                backgroundAudioPlayer?.prepareToPlay()
+                backgroundAudioPlayer?.play()
+            } catch {
+                print("Error")
+            }
+            
+        }
+    }
     
-    func pause() { audioPlayer?.pause() }
+    func play() {
+        audioPlayer?.play()
+        backgroundAudioPlayer?.play()
+    }
     
-    func stop() { audioPlayer?.stop() }
+    func pause() {
+        audioPlayer?.pause()
+        backgroundAudioPlayer?.pause()
+    }
+    
+    func stop() {
+        audioPlayer?.stop()
+        backgroundAudioPlayer?.stop()
+    }
 }
