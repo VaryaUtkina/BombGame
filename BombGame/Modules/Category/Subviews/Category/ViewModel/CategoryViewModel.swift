@@ -6,20 +6,18 @@
 //
 
 import Foundation
-import Combine
 
 final class CategoryViewModel: ObservableObject {
-    let objectWillChange = ObservableObjectPublisher()
-    let manager = CategoriesManager.shared
+    private let manager = DataManager.shared
     let category: Category
     
-    var isActive: Bool
-    var showCheckmark: Bool
+    @Published var isActive: Bool
+    @Published var showCheckmark: Bool
     
-    init(category: Category, showCheckmark: Bool = false) {
+    init(category: Category, isBlind: Bool = false) {
         self.category = category
-        self.isActive = manager.isActive(category)
-        self.showCheckmark = manager.isActive(category) || showCheckmark
+        self.isActive = manager.isActive(category) && !isBlind
+        self.showCheckmark = manager.isActive(category) || isBlind
     }
     
     func toggleActive() {

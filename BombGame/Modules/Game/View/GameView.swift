@@ -9,7 +9,12 @@ import SwiftUI
 import Lottie
 
 struct GameView: View {
-    @StateObject private var viewModel = GameViewModel(model: GameModel())
+    @StateObject private var viewModel = GameViewModel(
+        model: GameModel(),
+        audioPlayer: AudioPlayer(),
+        manager: DataManager.shared
+    )
+    @Environment(\.dismiss) private var dismiss
     
     private var topTextFont: Font {
         viewModel.isGameLaunched
@@ -18,13 +23,13 @@ struct GameView: View {
     }
     
     private var playbackMode: LottiePlaybackMode {
-        viewModel.isGameLaunched
-        ? .playing(.fromProgress(0, toProgress: 1, loopMode: .playOnce))
-        : .paused(at: .currentFrame)
+        guard viewModel.isGameLaunched, !viewModel.isGamePaused else {
+            return .paused(at: .currentFrame)
+        }
+        return .playing(.fromProgress(0, toProgress: 1, loopMode: .playOnce))
     }
     
     var body: some View {
-        NavigationStack {
             ZStack {
                 Colors.ComponentsColors.gameBackground
                     .ignoresSafeArea()
@@ -35,6 +40,9 @@ struct GameView: View {
                 
                 
                 VStack {
+                    
+                    navBarView
+                    
                     Text(viewModel.topText)
                         .multilineTextAlignment(.center)
                         .font(topTextFont)
@@ -42,9 +50,9 @@ struct GameView: View {
                     
                     LottieView(animation: .named(viewModel.model.texts.animationName))
                         .animationSpeed(viewModel.animationSpeed)
-                    .playbackMode(playbackMode)
-                    .opacity(viewModel.isGameLaunched ? 1 : 0)
-
+                        .playbackMode(playbackMode)
+                        .opacity(viewModel.isGameLaunched ? 1 : 0)
+                    
                     Button {
                         viewModel.startGame()
                     } label: {
@@ -56,17 +64,38 @@ struct GameView: View {
                     .background(Colors.ComponentsColors.gameViewButton)
                     .clipShape(.rect(cornerRadius: 10))
                     .opacity(viewModel.isGameLaunched ? 0 : 1)
+                    
+                    NavigationLink("", isActive: $viewModel.shouldMoveToGameEnd, destination: {FinalGameView()})
                 }
                 .padding(.horizontal, 22.5)
                 .padding(.bottom, 28)
+        }
+        .navigationBarBackButtonHidden()
+    }
+    
+    var navBarView: some View {
+        HStack {
+            
+            Button {
+                dismiss()
+            } label: {
+                Image(.backArrow)
             }
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text(viewModel.model.texts.title)
-                        .font(Font.customFont(size: 30).weight(.black))
-                        .foregroundStyle(Colors.TextColors.primary)
-                }
+            
+            Spacer()
+            
+            Text(viewModel.model.texts.title)
+                .font(Font.customFont(size: 30).weight(.black))
+                .foregroundStyle(Colors.TextColors.primary)
+            
+            Spacer()
+            
+            Button {
+                viewModel.pauseGame()
+            } label: {
+                Image(.pauseButton)
             }
+            
         }
     }
 }

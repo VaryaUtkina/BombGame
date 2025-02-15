@@ -12,6 +12,7 @@ struct Texts {
     let launch: String
     let animationName: String
     
+    
     init() {
         title = "Игра"
         launchGame = "Нажмите “Запустить”, чтобы начать игру"
