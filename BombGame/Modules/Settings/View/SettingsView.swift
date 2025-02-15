@@ -16,6 +16,12 @@ struct SettingsView: View {
         GridItem(.flexible())
     ]
     
+    //DEBUG
+    @State private var isExpanded = false
+    @State private var selectedOption = "Выберите"
+    let options = ["Apple", "Banana", "Cherry"]
+    //DEBUG
+    
     var body: some View {
         BackgroundView {
             VStack(spacing: 18) {
@@ -37,9 +43,10 @@ struct SettingsView: View {
                                                 .customFont(size: 18)
                                                 .weight(.black)
                                         )
-                                        .foregroundStyle(viewModel.currentDuration == duration
-                                                         ? Color.primaryText
-                                                         : Color.white
+                                        .foregroundStyle(
+                                            viewModel.currentDuration == duration
+                                            ? Color.primaryText
+                                            : Color.white
                                         )
                                         .frame(maxWidth: .infinity)
                                         .frame(height: 40)
@@ -55,9 +62,12 @@ struct SettingsView: View {
                     .padding(18)
                 }
                 
-                
                 SettingsSection {
-                    Text("Test2")
+                    DropdownMenuView(
+                        viewModel: DropdownMenuViewModel(
+                            Settings.BackgroundMusic.self
+                        )
+                    )
                 }
                 
                 SettingsSection {

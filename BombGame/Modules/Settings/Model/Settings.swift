@@ -7,6 +7,10 @@
 
 import Foundation
 
+protocol StringType: CaseIterable, RawRepresentable where RawValue == String {
+    var fileName: String { get }
+}
+
 struct Settings {
     var gameDuration: GameDuration
     var backgroundMusic: BackgroundMusic
@@ -37,7 +41,7 @@ extension Settings {
         }
     }
     
-    enum BackgroundMusic: String, CaseIterable {
+    enum BackgroundMusic: String, StringType {
         case music1 = "Мелодия 1"
         case music2 = "Мелодия 2"
         case music3 = "Мелодия 3"
@@ -54,7 +58,7 @@ extension Settings {
         }
     }
     
-    enum TickMusic: String, CaseIterable {
+    enum TickMusic: String, StringType {
         case music1 = "Часы 1"
         case music2 = "Часы 2"
         case music3 = "Часы 3"
@@ -71,7 +75,7 @@ extension Settings {
         }
     }
     
-    enum ExplosionMusic: String, CaseIterable {
+    enum ExplosionMusic: String, StringType {
         case music1 = "Взрыв 1"
         case music2 = "Взрыв 2"
         case music3 = "Взрыв 3"

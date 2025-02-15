@@ -60,7 +60,7 @@ struct MainView: View {
                 
                 ToolbarItem(placement: .topBarLeading) {
                     // Change to SettingsView()
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: SettingsView()) {
                         Image(viewModel.texts.gear)
                             .resizable()
                             .frame(width: 35, height: 35)
