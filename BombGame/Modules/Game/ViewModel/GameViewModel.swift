@@ -15,7 +15,8 @@ final class GameViewModel: ObservableObject {
     @Published var shouldMoveToGameEnd = false
     let bombURL: URL
     var animationSpeed: CGFloat { baseAnimationDuration / gameDuration }
-    private let baseAnimationDuration: CGFloat = 2
+    private let baseAnimationDuration: CGFloat = 1.6
+    private let timeToFinishAnimation: CGFloat = 1
     private var gameDuration: CGFloat = 30
     private let audioPlayer: AudioPlayer
     private var timer: Timer?
@@ -37,7 +38,8 @@ final class GameViewModel: ObservableObject {
         isGameLaunched = true
         topText = manager.getQuestion()
         audioPlayer.playSound(file: model.timerSound, loopsNumber: -1)
-        counter = gameDuration
+        audioPlayer.playBackgroundSound(file: model.backgroundSound)
+        counter = gameDuration + timeToFinishAnimation
         startTimer()
     }
     
@@ -62,14 +64,13 @@ final class GameViewModel: ObservableObject {
     }
     
     private func onTimerFires() {
-        print("Counter: ", counter)
-        guard counter > 0 else {
+        if counter < 0 {
             endGame()
-            return
-        }
+        } else {
             counter -= 1
-        if counter == 2 {
-            audioPlayer.playSound(file: model.explosionSound, loopsNumber: 1)
+            if counter == 1 {
+                audioPlayer.playSound(file: model.explosionSound, loopsNumber: 1)
+            }
         }
     }
 }
