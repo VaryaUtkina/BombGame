@@ -12,4 +12,16 @@ final class SettingsViewModel: ObservableObject {
     
     let durations = Settings.GameDuration.allCases.map{$0.rawValue}
     
+    @Published var currentDuration: String = SettingsManager.shared.getSettings().gameDuration.rawValue
+    
+    func changeDuration(_ duration: String) {
+        for item in Settings.GameDuration.allCases {
+            if item.rawValue == duration {
+                manager.setGameDuration(item)
+                currentDuration = duration
+                return
+            }
+        }
+    }
+    
 }

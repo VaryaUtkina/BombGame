@@ -12,30 +12,59 @@ struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
     
     private let columns: [GridItem] = [
-        GridItem(.flexible(), spacing: 23),
+        GridItem(.flexible(), spacing: 44),
         GridItem(.flexible())
     ]
     
     var body: some View {
         BackgroundView {
-            VStack {
-                HStack {
-                    Text("ВРЕМЯ ИГРЫ")
-                        .font(Font.customFont(size: 20).weight(.bold))
-                        .foregroundStyle(Color.primaryText)
-                    Spacer()
-                }
-                .padding(18)
-                
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 34) {
-                        ForEach(viewModel.durations, id: \.self) { duration in
-                            Text("\(duration)")
+            VStack(spacing: 18) {
+                SettingsSection {
+                    VStack {
+                        HStack {
+                            Text("ВРЕМЯ ИГРЫ")
+                                .font(Font.customFont(size: 20).weight(.bold))
+                                .foregroundStyle(Color.primaryText)
+                            Spacer()
+                        }
+                        
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            ForEach(viewModel.durations, id: \.self) { duration in
+                                Button(action: {viewModel.changeDuration(duration)}) {
+                                    Text(duration)
+                                        .font(
+                                            Font
+                                                .customFont(size: 18)
+                                                .weight(.black)
+                                        )
+                                        .foregroundStyle(viewModel.currentDuration == duration
+                                                         ? Color.primaryText
+                                                         : Color.white
+                                        )
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 40)
+                                }
+                                .background(viewModel.currentDuration == duration
+                                            ? Color.gameViewButton
+                                            : Color.primaryText
+                                )
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
+                            }
                         }
                     }
+                    .padding(18)
+                }
+                
+                
+                SettingsSection {
+                    Text("Test2")
+                }
+                
+                SettingsSection {
+                    Text("test3")
                 }
             }
-            .section()
+            
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -54,27 +83,6 @@ struct SettingsView: View {
                     .foregroundStyle(Color.primaryText)
             }
         }
-    }
-}
-
-struct SettingsSectionViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .frame(maxWidth: .infinity)
-            .background(Color.categoryCellBg)
-        
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color.primaryText, lineWidth: 1)
-            )
-            .padding(10)
-    }
-}
-
-extension View {
-    func section() -> some View {
-        modifier(SettingsSectionViewModifier())
     }
 }
 

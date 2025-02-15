@@ -18,7 +18,7 @@ final class SettingsManager {
         settings
     }
     
-    func setGameTime(_ time: Settings.GameDuration) {
+    func setGameDuration(_ time: Settings.GameDuration) {
         settings.gameDuration = time
     }
     
