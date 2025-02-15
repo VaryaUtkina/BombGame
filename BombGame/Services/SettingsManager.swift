@@ -10,7 +10,11 @@ import Foundation
 final class SettingsManager {
     static let shared = SettingsManager()
 
-    private var settings = DataManager.shared.getSettings()
+    private var settings = DataManager.shared.getSettings() {
+        didSet {
+            print(settings)
+        }
+    }
     
     private init() {}
     

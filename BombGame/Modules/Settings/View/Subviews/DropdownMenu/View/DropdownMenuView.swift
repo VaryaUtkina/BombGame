@@ -9,51 +9,55 @@ import SwiftUI
 
 struct DropdownMenuView: View {
     @StateObject var viewModel: DropdownMenuViewModel
+    let title: String
 
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 0) {
             Button(action: {withAnimation {viewModel.pressed()} }) {
                 HStack {
-                    Text(viewModel.selectedOption)
-                        .foregroundColor(.primary)
+                    Text(title)
+                        .font(Font.customFont(size: 16).weight(.bold))
+                        .foregroundStyle(Color.secondaryText)
                     Spacer()
+                    Text(viewModel.selectedOption)
+                        .font(Font.customFont(size: 14).weight(.bold))
+                        .foregroundStyle(Color.secondaryText)
+                        .opacity(0.5)
+                    
                     Image(systemName: "chevron.up")
-                        .foregroundColor(.gray)
+                        .foregroundColor(Color.secondaryText)
                         .rotationEffect(.degrees(viewModel.isExpanded ? 0 : 90))
-                        .animation(.easeInOut, value: viewModel.isExpanded)
                 }
                 .padding()
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(8)
+                
             }
 
             if viewModel.isExpanded {
-                VStack(spacing: 5) {
+                VStack(spacing: 0) {
                     ForEach(viewModel.options, id: \.self) { option in
                         Button(action: {
                             withAnimation {
-                                viewModel.selectedOption = option
-                                viewModel.isExpanded = false
+                                viewModel.change(option)
                             }
                         }) {
                             Text(option)
-                                .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(Color.white)
+                                .foregroundColor(Color.secondaryText)
                         }
-                        .transition(.move(edge: .top).combined(with: .opacity))
                     }
                 }
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(8)
-                .shadow(radius: 3)
             }
         }
+        .background(Color.primaryText)
+        .cornerRadius(15)
     }
 }
 
 struct ContentView: View {
     var body: some View {
-        DropdownMenuView(viewModel: DropdownMenuViewModel(Settings.BackgroundMusic.self))
+        DropdownMenuView(
+            viewModel: DropdownMenuViewModel(Settings.BackgroundMusic.self),
+            title: "test"
+        )
     }
 }

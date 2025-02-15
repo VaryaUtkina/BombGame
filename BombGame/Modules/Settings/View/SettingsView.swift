@@ -60,19 +60,22 @@ struct SettingsView: View {
                     SettingsSection {
                         VStack(spacing: 18) {
                             DropdownMenuView(
-                                viewModel: DropdownMenuViewModel(
+                                viewModel: DropdownMenuViewModel (
                                     Settings.BackgroundMusic.self
-                                )
+                                ),
+                                title: "Фоновая музыка"
                             )
                             DropdownMenuView(
-                                viewModel: DropdownMenuViewModel(
+                                viewModel: DropdownMenuViewModel (
                                     Settings.TickMusic.self
-                                )
+                                ),
+                                title: "Тиканье бомбы"
                             )
                             DropdownMenuView(
-                                viewModel: DropdownMenuViewModel(
+                                viewModel: DropdownMenuViewModel (
                                     Settings.ExplosionMusic.self
-                                )
+                                ),
+                                title: "Взрыв бомбы"
                             )
                         }
                         .padding()
