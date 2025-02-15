@@ -12,20 +12,7 @@ struct RulesView: View {
     
     var body: some View {
         
-        ZStack {
-            Color.mainBackground
-                .ignoresSafeArea()
-            
-            Image(.mainbackgroundShape)
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-            
-            VStack(spacing: 10) {
-                Spacer()
-                TitleTextView(topText: "Игра для компании",
-                              bottomText: "Бомба")
-                .padding(.horizontal, 20)
+
                 
                 ZStack {
                     RoundedRectangle(cornerRadius: 40)
@@ -40,9 +27,6 @@ struct RulesView: View {
                         .opacity(0.3)
                     
                     VStack(spacing: 10) {
-                        RoundedRectangle(cornerRadius: 25)
-                            .frame(width: 68 ,height: 3)
-                        
                         Text("Правила игры")
                             .font(Font.customFont(size: 32).weight(.heavy))
                             .multilineTextAlignment(.center)
@@ -56,19 +40,12 @@ struct RulesView: View {
                         .padding(.horizontal, 20)
                         .padding(.bottom, 25)
                     }
+                    .padding(.top, 20)
                     .padding(.horizontal, 10)
                 }
-            }
-        }
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Image(systemName: "questionmark.circle.fill")
-                    .resizable()
-                    .frame(width: 35, height: 35)
-                    .foregroundStyle(Color.red)
-            }
-        }
+//            }
+        
+       
     }
 }
 

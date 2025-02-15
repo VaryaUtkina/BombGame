@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
+    @State private var isShowingRules = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -37,10 +39,27 @@ struct MainView: View {
                 }
             }
             .ignoresSafeArea()
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        isShowingRules = true
+                    } label: {
+                        Image(systemName: "questionmark.circle.fill")
+                            .resizable()
+                            .frame(width: 35, height: 35)
+                            .foregroundStyle(Color.red)
+                    }
+                }
+            }
+            .sheet(isPresented: $isShowingRules) {
+                RulesView()
+                    .presentationDetents([.fraction(0.75)])
+                    .presentationDragIndicator(.visible)
+            }
         }
     }
 }
-
 #Preview {
     MainView()
 }
