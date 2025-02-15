@@ -1,5 +1,5 @@
 //
-//  RuleView.swift
+//  RuleTextView.swift
 //  BombGame
 //
 //  Created by Sergey Zakurakin on 2/14/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RuleView: View {
+struct RuleTextView: View {
     let rule: RuleModel
     
     var body: some View {
@@ -48,5 +48,5 @@ struct RuleView: View {
 }
 
 #Preview {
-    RuleView(rule: RuleModel.init(number: "1", text: "text", showRectangle: false))
+    RuleTextView(rule: RuleModel.init(number: "1", text: "text", showRectangle: false))
 }

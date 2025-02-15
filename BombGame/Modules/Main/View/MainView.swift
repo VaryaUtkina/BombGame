@@ -14,7 +14,7 @@ struct MainView: View {
         NavigationStack {
             ZStack {
                 Color(.mainBackground)
-
+                
                 Image(.mainbackgroundShape)
                     .resizable()
                 
@@ -60,7 +60,7 @@ struct MainView: View {
                 
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                       // SettingsView()
+                        // SettingsView()
                     } label: {
                         Image("gear")
                             .resizable()

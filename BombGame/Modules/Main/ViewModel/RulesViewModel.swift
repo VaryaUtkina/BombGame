@@ -18,5 +18,5 @@ final class RulesViewModel: ObservableObject {
         RuleModel(number: "6", text: "Проигравшим считается тот, в чьих руках взорвалась бомба.", showRectangle: false),
         RuleModel(number: "7", text: "Если выбран режим игры “С Заданиями”, то проигравший выполняет задание.", showRectangle: false)
     ]
-
-    }
+    
+}
