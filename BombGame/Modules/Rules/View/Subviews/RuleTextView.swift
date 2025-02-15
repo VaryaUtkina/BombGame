@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RuleTextView: View {
-    let rule: RuleModel
+    let rule: Rule
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -29,7 +29,7 @@ struct RuleTextView: View {
                     .layoutPriority(1)
             }
             
-            if rule.showRectangle {
+            if rule.shouldShowRectangle {
                 HStack {
                     RoundedRectangle(cornerRadius: 5)
                         .frame(width: 167, height: 27)
@@ -48,5 +48,5 @@ struct RuleTextView: View {
 }
 
 #Preview {
-    RuleTextView(rule: RuleModel.init(number: "1", text: "text", showRectangle: false))
+    RuleTextView(rule: Rule.init(number: "1", text: "text", shouldShowRectangle: false))
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RulesView: View {
-    @StateObject var viewModel = RulesViewModel()
+    @StateObject var viewModel = RulesViewModel(model: Rules())
     
     var body: some View {
         ZStack {
@@ -29,7 +29,7 @@ struct RulesView: View {
                     .frame(width: 68, height: 3)
                     .padding(.top, 18)
                 
-                Text("Правила игры")
+                Text(viewModel.title)
                     .font(Font.customFont(size: 32).weight(.black))
                     .multilineTextAlignment(.center)
                     .minimumScaleFactor(0.5)

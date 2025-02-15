@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct RuleModel: Identifiable {
+struct Rule: Identifiable {
     let id = UUID()
     let number: String
     let text: String
-    let showRectangle: Bool
+    let shouldShowRectangle: Bool
     
     
     // Обработка части текста цветом
