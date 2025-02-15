@@ -15,6 +15,7 @@ struct RulesView: View {
         ZStack {
             Color.mainBackground
                 .ignoresSafeArea()
+            
             Image(.mainbackgroundShape)
                 .resizable()
                 .scaledToFill()
@@ -53,12 +54,19 @@ struct RulesView: View {
                             }
                         }
                         .padding(.horizontal, 20)
-//                        .padding(.bottom, 25)
-                        
+                        .padding(.bottom, 25)
                     }
                     .padding(.horizontal, 10)
                 }
-                .padding(.top, 10)
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Image(systemName: "questionmark.circle.fill")
+                    .resizable()
+                    .frame(width: 35, height: 35)
+                    .foregroundStyle(Color.red)
             }
         }
     }

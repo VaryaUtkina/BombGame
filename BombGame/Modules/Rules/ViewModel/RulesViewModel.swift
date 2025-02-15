@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-class RulesViewModel: ObservableObject {
-    
+final class RulesViewModel: ObservableObject {
     
     @Published var rules: [RuleModel] = [
         RuleModel(number: "1", text: "Все игроки становятся в круг.", showRectangle: false),
