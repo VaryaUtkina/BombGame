@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AudioToolbox
 
 final class GameViewModel: ObservableObject {
     @Published var model: GameModel
@@ -13,14 +14,14 @@ final class GameViewModel: ObservableObject {
     @Published var isGameLaunched = false
     @Published var isGamePaused = false
     @Published var shouldMoveToGameEnd = false
-    let bombURL: URL
     var animationSpeed: CGFloat { baseAnimationDuration / gameDuration }
     private let baseAnimationDuration: CGFloat = 1.6
     private let timeToFinishAnimation: CGFloat = 1
-    private var gameDuration: CGFloat = 30
+    private let gameDuration: CGFloat
     private let audioPlayer: AudioPlayer
     private var timer: Timer?
     private let dataManager: DataManager
+    private let settingsManager: SettingsManager
     private var counter = 0.0
     
     
@@ -32,18 +33,22 @@ final class GameViewModel: ObservableObject {
         settingsManager: SettingsManager
     ) {
         self.model = model
+        topText = model.texts.launchGame
         self.audioPlayer = audioPlayer
         self.dataManager = dataManager
-        topText = model.texts.launchGame
-        bombURL = URL(string: model.bombURL) ?? URL(filePath: "")
-        
+        self.settingsManager = settingsManager
+       
+        let settings = settingsManager.settings
+        gameDuration = settings.gameDuration.duration
     }
     
     func startGame() {
         isGameLaunched = true
         topText = dataManager.getQuestion()
-        audioPlayer.playSound(file: model.timerSound, loopsNumber: -1)
-        audioPlayer.playBackgroundSound(file: model.backgroundSound)
+        let tickMusic = settingsManager.settings.tickMusic.fileName
+        audioPlayer.playSound(file: tickMusic, loopsNumber: -1)
+        let backgroundMusic = settingsManager.settings.backgroundMusic.fileName
+        audioPlayer.playBackgroundSound(file: backgroundMusic)
         counter = gameDuration + timeToFinishAnimation
         startTimer()
     }
@@ -74,8 +79,16 @@ final class GameViewModel: ObservableObject {
         } else {
             counter -= 1
             if counter == 1 {
-                audioPlayer.playSound(file: model.explosionSound, loopsNumber: 1)
+                makeExplosion()
             }
+        }
+    }
+    
+    private func makeExplosion() {
+        let explosionMusic = settingsManager.settings.explosionMusic.fileName
+        audioPlayer.playSound(file: explosionMusic, loopsNumber: 1)
+        if settingsManager.settings.isVibrationEnabled {
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
     }
 }
