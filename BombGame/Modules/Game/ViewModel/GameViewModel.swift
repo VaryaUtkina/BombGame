@@ -20,15 +20,20 @@ final class GameViewModel: ObservableObject {
     private var gameDuration: CGFloat = 30
     private let audioPlayer: AudioPlayer
     private var timer: Timer?
-    private let manager: DataManager
+    private let dataManager: DataManager
     private var counter = 0.0
     
     
     
-    init(model: GameModel, audioPlayer: AudioPlayer, manager: DataManager) {
+    init(
+        model: GameModel,
+        audioPlayer: AudioPlayer,
+        dataManager: DataManager,
+        settingsManager: SettingsManager
+    ) {
         self.model = model
         self.audioPlayer = audioPlayer
-        self.manager = manager
+        self.dataManager = dataManager
         topText = model.texts.launchGame
         bombURL = URL(string: model.bombURL) ?? URL(filePath: "")
         
@@ -36,7 +41,7 @@ final class GameViewModel: ObservableObject {
     
     func startGame() {
         isGameLaunched = true
-        topText = manager.getQuestion()
+        topText = dataManager.getQuestion()
         audioPlayer.playSound(file: model.timerSound, loopsNumber: -1)
         audioPlayer.playBackgroundSound(file: model.backgroundSound)
         counter = gameDuration + timeToFinishAnimation
