@@ -16,16 +16,16 @@ struct Settings {
     var backgroundMusic: BackgroundMusic
     var tickMusic: TickMusic
     var explosionMusic: ExplosionMusic
-    var vibrationEnable: Bool
-    var punishmentsEnable: Bool
+    var isVibrationEnabled: Bool
+    var isPunishmentsEnabled: Bool
     
     static let defaultSettings = Settings(
         gameDuration: .medium,
         backgroundMusic: .music1,
         tickMusic: .music1,
         explosionMusic: .music1,
-        vibrationEnable: true,
-        punishmentsEnable: true
+        isVibrationEnabled: true,
+        isPunishmentsEnabled: true
     )
 }
 
@@ -36,7 +36,7 @@ extension Settings {
         case long = "Длинное"
         case random = "Случайное"
         
-        var duration: Int {
+        var duration: CGFloat {
             switch self {
             case .short:
                 10
@@ -45,7 +45,7 @@ extension Settings {
             case .long:
                 60
             case .random:
-                Int.random(in: 10...60)
+                CGFloat.random(in: 10...60)
             }
         }
     }
@@ -58,11 +58,11 @@ extension Settings {
         var fileName: String {
             switch self {
             case .music1:
-                "background_music_1"
+                "backgroundMusic1"
             case .music2:
-                "background_music_2"
+                "backgroundMusic2"
             case .music3:
-                "background_music_3"
+                "backgroundMusic3"
             }
         }
     }
@@ -75,11 +75,11 @@ extension Settings {
         var fileName: String {
             switch self {
             case .music1:
-                "tick_music_1"
+                "tickMusic1"
             case .music2:
-                "tick_music_2"
+                "tickMusic2"
             case .music3:
-                "tick_music_3"
+                "tickMusic3"
             }
         }
     }
@@ -92,11 +92,11 @@ extension Settings {
         var fileName: String {
             switch self {
             case .music1:
-                "explosion_music_1"
+                "explosionMusic1"
             case .music2:
-                "explosion_music_2"
+                "explosionMusic2"
             case .music3:
-                "explosion_music_3"
+                "explosionMusic3"
             }
         }
     }
