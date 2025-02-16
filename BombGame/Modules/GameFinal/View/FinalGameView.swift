@@ -10,7 +10,8 @@ import SwiftUI
 struct FinalGameView: View {
     @StateObject private var viewModel = FinalGameViewModel(
         model: FinalGameModel(),
-        manager: DataManager.shared
+        dataManager: DataManager.shared,
+        settingsManager: SettingsManager.shared
     )
     @Environment(\.dismiss) private var dismiss
     
@@ -32,7 +33,7 @@ struct FinalGameView: View {
                 .padding(.horizontal, 23.5)
                 .transition(.opacity)
                 .frame(minHeight: 170)
-            
+                .opacity(viewModel.isPunishmentsEnabled ? 1 : 0)
             
             VStack(spacing: 16) {
                 ButtonView(title: viewModel.punishmentTitle) {
@@ -40,9 +41,9 @@ struct FinalGameView: View {
                         viewModel.getAnotherPunishment()
                     }
                 }
+                .opacity(viewModel.isPunishmentsEnabled ? 1 : 0)
                 
                 ButtonView(title: viewModel.resetTitle) {
-                    // TODO: - не работает, пока нет навигации
                     dismiss()
                 }
             }

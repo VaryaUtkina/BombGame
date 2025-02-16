@@ -14,13 +14,16 @@ final class FinalGameViewModel: ObservableObject {
     let punishmentTitle: String
     let navTitle: String
     let resetTitle: String
+    let isPunishmentsEnabled: Bool
     
     private let dataManager: DataManager
+    private let settingsManager: SettingsManager
     
-    init(model: FinalGameModel, manager: DataManager) {
-        dataManager = manager
+    init(model: FinalGameModel, dataManager: DataManager, settingsManager: SettingsManager) {
         self.model = model
-        
+        self.dataManager = dataManager
+        self.settingsManager = settingsManager
+        isPunishmentsEnabled = settingsManager.settings.isPunishmentsEnabled
         currentPunishment = dataManager.getPunishments()
         punishmentTitle = model.text.punishmentTitle
         navTitle = model.text.navTitle
