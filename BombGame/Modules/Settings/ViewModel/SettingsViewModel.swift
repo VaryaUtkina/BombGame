@@ -10,9 +10,9 @@ import Foundation
 final class SettingsViewModel: ObservableObject {
     private let manager = SettingsManager.shared
     
-    @Published var currentDuration: String = SettingsManager.shared.getSettings().gameDuration.rawValue
-    @Published var isVibrationOn: Bool = SettingsManager.shared.getSettings().vibrationEnable
-    @Published var isPunishmentsOn: Bool = SettingsManager.shared.getSettings().punishmentsEnable
+    @Published var currentDuration: String = SettingsManager.shared.settings.gameDuration.rawValue
+    @Published var isVibrationOn: Bool = SettingsManager.shared.settings.isVibrationEnabled
+    @Published var isPunishmentsOn: Bool = SettingsManager.shared.settings.isPunishmentsEnabled
     
     let durations = Settings.GameDuration.allCases.map{ $0.rawValue }
     

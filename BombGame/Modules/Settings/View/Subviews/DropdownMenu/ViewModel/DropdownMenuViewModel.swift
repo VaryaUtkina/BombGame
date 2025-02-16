@@ -18,7 +18,7 @@ final class DropdownMenuViewModel: ObservableObject {
         parametrType = type
         options = type.allCases.map { $0.rawValue }
         
-        let parametrs = Mirror(reflecting: manager.getSettings()).children
+        let parametrs = Mirror(reflecting: manager.settings).children
         
         for parametr in parametrs {
             if let item = parametr.value as? T {
@@ -38,7 +38,7 @@ final class DropdownMenuViewModel: ObservableObject {
     }
     
     private func setParametr<T: StringType>(_ option: String, for type: T.Type) {
-        let parametrs = Mirror(reflecting: manager.getSettings()).children
+        let parametrs = Mirror(reflecting: manager.settings).children
         
         for parametr in parametrs {
             if parametr.value is T, let item = T(rawValue: option) {

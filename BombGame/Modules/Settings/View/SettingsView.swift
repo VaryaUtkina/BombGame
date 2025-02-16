@@ -20,6 +20,8 @@ struct SettingsView: View {
         BackgroundView {
             ScrollView {
                 VStack(spacing: 18) {
+                    Spacer()
+                        .frame(height: 20)
                     SettingsSection {
                         VStack {
                             HStack {

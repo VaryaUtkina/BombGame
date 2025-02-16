@@ -10,29 +10,11 @@ import Foundation
 final class SettingsManager {
     static let shared = SettingsManager()
 
-    private var settings = DataManager.shared.getSettings() {
-        didSet {
-            print(settings)
-        }
+    private(set) var settings: Settings
+    
+    private init() {
+        settings = Settings.defaultSettings
     }
-    
-    private init() {}
-    
-    func getSettings() -> Settings {
-        settings
-    }
-    
-    func getCurrentMusic<T: StringType>(for type: T.Type) -> T? {
-            if let music = settings.backgroundMusic as? T {
-                return music
-            } else if let music = settings.tickMusic as? T {
-                return music
-            } else if let music = settings.explosionMusic as? T {
-                return music
-            }
-            
-            return nil
-        }
     
     func setGameDuration(_ time: Settings.GameDuration) {
         settings.gameDuration = time
@@ -49,10 +31,10 @@ final class SettingsManager {
     }
     
     func toggleVibration() {
-        settings.vibrationEnable.toggle()
+        settings.isVibrationEnabled.toggle()
     }
     
     func togglePunishments() {
-        settings.punishmentsEnable.toggle()
+        settings.isPunishmentsEnabled.toggle()
     }
 }
