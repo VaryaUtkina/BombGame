@@ -15,14 +15,17 @@ final class GameViewModel: ObservableObject {
     @Published var isGamePaused = false
     @Published var shouldMoveToGameEnd = false
     var animationSpeed: CGFloat { baseAnimationDuration / gameDuration }
-    private let baseAnimationDuration: CGFloat = 1.6
-    private let timeToFinishAnimation: CGFloat = 1
+    private let baseAnimationDuration: CGFloat = 1.53
+    private let timeToFinishAnimation: CGFloat = 2
+    private let timerInterval: CGFloat = 0.1
+    private let explosionDelay: CGFloat = -0.5
     private let gameDuration: CGFloat
     private let audioPlayer: AudioPlayer
     private var timer: Timer?
     private let dataManager: DataManager
     private let settingsManager: SettingsManager
     private var counter = 0.0
+    private var isExploded = false
     
     
     
@@ -68,23 +71,28 @@ final class GameViewModel: ObservableObject {
     }
     
     private func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] _ in
+        isExploded = false
+        timer = Timer.scheduledTimer(withTimeInterval: timerInterval, repeats: true, block: { [weak self] _ in
             self?.onTimerFires()
         })
     }
     
     private func onTimerFires() {
+        print(counter)
         if counter < 0 {
             endGame()
         } else {
-            counter -= 1
-            if counter == 1 {
+            counter -= timerInterval
+            if counter <= timeToFinishAnimation + explosionDelay {
                 makeExplosion()
             }
         }
     }
     
     private func makeExplosion() {
+        guard !isExploded else { return }
+        isExploded = true
+        print(#function, " ", counter)
         let explosionMusic = settingsManager.settings.explosionMusic.fileName
         audioPlayer.playSound(file: explosionMusic, loopsNumber: 1)
         if settingsManager.settings.isVibrationEnabled {
