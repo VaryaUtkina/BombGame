@@ -9,16 +9,97 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var settingsViewModel = SettingsViewModel()
+    @StateObject private var viewModel = SettingsViewModel()
+    
+    private let columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 44),
+        GridItem(.flexible())
+    ]
     
     var body: some View {
         BackgroundView {
-            VStack {
-                Text("Test1")
-                Text("Test2")
-                Text("Test3")
+            ScrollView {
+                VStack(spacing: 18) {
+                    SettingsSection {
+                        VStack {
+                            HStack {
+                                Text("ВРЕМЯ ИГРЫ")
+                                    .font(Font.customFont(size: 20).weight(.bold))
+                                    .foregroundStyle(Color.primaryText)
+                                Spacer()
+                            }
+                            
+                            LazyVGrid(columns: columns, spacing: 20) {
+                                ForEach(viewModel.durations, id: \.self) { duration in
+                                    Button(action: {viewModel.changeDuration(duration)}) {
+                                        Text(duration)
+                                            .font(
+                                                Font
+                                                    .customFont(size: 18)
+                                                    .weight(.black)
+                                            )
+                                            .foregroundStyle(
+                                                viewModel.currentDuration == duration
+                                                ? Color.primaryText
+                                                : Color.white
+                                            )
+                                            .frame(maxWidth: .infinity)
+                                            .frame(height: 40)
+                                    }
+                                    .background(viewModel.currentDuration == duration
+                                                ? Color.gameViewButton
+                                                : Color.primaryText
+                                    )
+                                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                                }
+                            }
+                        }
+                        .padding(18)
+                    }
+                    
+                    SettingsSection {
+                        VStack(spacing: 18) {
+                            DropdownMenuView(
+                                viewModel: DropdownMenuViewModel (
+                                    Settings.BackgroundMusic.self
+                                ),
+                                title: "Фоновая музыка"
+                            )
+                            DropdownMenuView(
+                                viewModel: DropdownMenuViewModel (
+                                    Settings.TickMusic.self
+                                ),
+                                title: "Тиканье бомбы"
+                            )
+                            DropdownMenuView(
+                                viewModel: DropdownMenuViewModel (
+                                    Settings.ExplosionMusic.self
+                                ),
+                                title: "Взрыв бомбы"
+                            )
+                        }
+                        .padding()
+                    }
+                    
+                    SettingsSection {
+                        VStack(spacing: 18) {
+                            ToggleStackView(
+                                toggleState: $viewModel.isVibrationOn,
+                                function: viewModel.toggleVibration,
+                                title: "Вибрация"
+                            )
+                            
+                            ToggleStackView(
+                                toggleState: $viewModel.isPunishmentsOn,
+                                function: viewModel.togglePunishments,
+                                title: "Игра с заданиями"
+                            )
+                        }
+                        .padding()
+                    }
+                }
             }
-            .section()
+            
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -37,27 +118,6 @@ struct SettingsView: View {
                     .foregroundStyle(Color.primaryText)
             }
         }
-    }
-}
-
-struct SettingsSectionViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .frame(maxWidth: .infinity)
-            .background(Color.red)
-            
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color.green, lineWidth: 3)
-            )
-            .padding(10)
-    }
-}
-
-extension View {
-    func section() -> some View {
-        modifier(SettingsSectionViewModifier())
     }
 }
 
