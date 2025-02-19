@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Data {
+struct GameData {
     
     let punishments: [String] = [
         "Признайся в любви на корявом французском тому, кто справа",
@@ -35,7 +35,7 @@ struct Data {
     
     let allCategories: [Category] = [
         Category(
-            id: UUID(),
+            id: 0,
             title: "Кино и Искусство",
             questions: [
                 "Назовите фильмы, получившие «Оскар» за лучший фильм",
@@ -57,7 +57,7 @@ struct Data {
             imageName: "CategoryMovie"
         ),
         Category(
-            id: UUID(),
+            id: 1,
             title: "Спорт",
             questions: [
                 "Назовите зимние виды спорта",
@@ -79,7 +79,7 @@ struct Data {
             imageName: "CategorySport"
         ),
         Category(
-            id: UUID(),
+            id: 2,
             title: "Знаменитости",
             questions: [
                 "Назовите популярных певцов",
@@ -101,7 +101,7 @@ struct Data {
             imageName: "CategoryСelebrities"
         ),
         Category(
-            id: UUID(),
+            id: 3,
             title: "Природа",
             questions: [
                 "Назовите животных, занесённых в Красную книгу",
@@ -123,7 +123,7 @@ struct Data {
             imageName: "CategoryNature"
         ),
         Category(
-            id: UUID(),
+            id: 4,
             title: "Про жизнь",
             questions: [
                 "Назовите утренние привычки",
@@ -145,7 +145,7 @@ struct Data {
             imageName: "CategoryAboutLife"
         ),
         Category(
-            id: UUID(),
+            id: 5,
             title: "О разном",
             questions: [
                 "Назовите города с населением более 10 миллионов",
@@ -167,7 +167,7 @@ struct Data {
             imageName: "CategoryMiscellaneous"
         ),
         Category(
-            id: UUID(),
+            id: 6,
             title: "Наука и Технологии",
             questions: [
                 "Назовите планеты Солнечной системы",
@@ -189,7 +189,7 @@ struct Data {
             imageName: "CategoryScience"
         ),
         Category(
-            id: UUID(),
+            id: 7,
             title: "Игры и Развлечения",
             questions: [
                 "Назовите популярные видеоигры",
@@ -209,7 +209,12 @@ struct Data {
                 "Назовите игры, в которые можно играть без интернета"
             ],
             imageName: "CategoryGames"
+        ),
+        Category(
+            id: 8,
+            title: "Собственные вопросы",
+            questions: [],
+            imageName: "CategoryOwn"
         )
-        
     ]
 }

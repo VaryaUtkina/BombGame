@@ -10,28 +10,25 @@ import Foundation
 final class DataManager {
     static let shared = DataManager()
     
-    private let data = Data()
+    private let gameData = GameData()
+    private let settingsManager = SettingsManager.shared
     
-    private var selectedCategories: Set<Category> = []
     private var questionQueue: [String] = []
     private var punishmentQueue: [String] = []
     
     private init() {}
     
     func getAllCategories() -> [Category] {
-        data.allCategories
+        gameData.allCategories
     }
     
     func toggleCategory(_ category: Category) {
-        if selectedCategories.contains(category) {
-            selectedCategories.remove(category)
-        } else {
-            selectedCategories.insert(category)
-        }
+        settingsManager.toggleCategoryIndex(category.id)
+        questionQueue.removeAll()
     }
     
     func isActive(_ category: Category) -> Bool {
-        selectedCategories.contains(category)
+        settingsManager.settings.selectedCategoriesIndexes.contains(category.id)
     }
     
     func getQuestion() -> String {
@@ -43,15 +40,23 @@ final class DataManager {
     
     func getPunishments() -> String {
         if punishmentQueue.isEmpty {
-            punishmentQueue = data.punishments.shuffled()
+            punishmentQueue = gameData.punishments.shuffled()
         }
         return punishmentQueue.removeLast()
     }
     
     private func makeQuestionsQueue() {
-        (selectedCategories.isEmpty ? data.allCategories : Array(selectedCategories)).forEach { category in
+        (
+            settingsManager.settings.selectedCategoriesIndexes.isEmpty
+            ? gameData.allCategories
+            : Array(gameData.allCategories.filter{ category in
+                settingsManager.settings.selectedCategoriesIndexes.contains(category.id)
+            })
+        )
+        .forEach { category in
             questionQueue += category.questions
         }
+        
         questionQueue = questionQueue.shuffled()
     }
 }

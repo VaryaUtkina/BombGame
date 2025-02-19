@@ -11,13 +11,14 @@ protocol StringType: CaseIterable, RawRepresentable where RawValue == String {
     var fileName: String { get }
 }
 
-struct Settings {
+struct Settings: Codable {
     var gameDuration: GameDuration
     var backgroundMusic: BackgroundMusic
     var tickMusic: TickMusic
     var explosionMusic: ExplosionMusic
     var isVibrationEnabled: Bool
     var isPunishmentsEnabled: Bool
+    var selectedCategoriesIndexes: Set<Int>
     
     static let defaultSettings = Settings(
         gameDuration: .medium,
@@ -25,12 +26,13 @@ struct Settings {
         tickMusic: .music1,
         explosionMusic: .music1,
         isVibrationEnabled: true,
-        isPunishmentsEnabled: true
+        isPunishmentsEnabled: true,
+        selectedCategoriesIndexes: []
     )
 }
 
 extension Settings {
-    enum GameDuration: String, CaseIterable {
+    enum GameDuration: String, CaseIterable, Codable {
         case short = "Короткое"
         case medium = "Среднее"
         case long = "Длинное"
@@ -50,7 +52,7 @@ extension Settings {
         }
     }
     
-    enum BackgroundMusic: String, StringType {
+    enum BackgroundMusic: String, StringType, Codable {
         case music1 = "Мелодия 1"
         case music2 = "Мелодия 2"
         case music3 = "Мелодия 3"
@@ -67,7 +69,7 @@ extension Settings {
         }
     }
     
-    enum TickMusic: String, StringType {
+    enum TickMusic: String, StringType, Codable {
         case music1 = "Часы 1"
         case music2 = "Часы 2"
         case music3 = "Часы 3"
@@ -84,7 +86,7 @@ extension Settings {
         }
     }
     
-    enum ExplosionMusic: String, StringType {
+    enum ExplosionMusic: String, StringType, Codable {
         case music1 = "Взрыв 1"
         case music2 = "Взрыв 2"
         case music3 = "Взрыв 3"
