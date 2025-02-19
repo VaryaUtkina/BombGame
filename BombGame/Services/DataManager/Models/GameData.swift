@@ -213,7 +213,7 @@ struct GameData {
         Category(
             id: 8,
             title: "Собственные вопросы",
-            questions: [],
+            questions: StorageManager.shared.loadOwnQuestions(),
             imageName: "CategoryOwn"
         )
     ]

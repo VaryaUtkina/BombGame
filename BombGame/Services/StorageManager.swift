@@ -41,7 +41,8 @@ final class StorageManager {
         return []
     }
     
-    func saveOwnQuestions(_ questions: [String]) {
+    func saveOwnQuestion(_ question: String) {
+        let questions = loadOwnQuestions() + [question]
         if let encodedQuestions = try? JSONEncoder().encode(questions) {
             UserDefaults.standard.set(encodedQuestions, forKey: Storage.questions.rawValue)
         }

@@ -10,8 +10,10 @@ import Foundation
 final class DataManager {
     static let shared = DataManager()
     
-    private let gameData = GameData()
     private let settingsManager = SettingsManager.shared
+    private let storageManager = StorageManager.shared
+    
+    private var gameData = GameData()
     
     private var questionQueue: [String] = []
     private var punishmentQueue: [String] = []
@@ -43,6 +45,11 @@ final class DataManager {
             punishmentQueue = gameData.punishments.shuffled()
         }
         return punishmentQueue.removeLast()
+    }
+    
+    func addOwnQuestion(_ question: String) {
+        storageManager.saveOwnQuestion(question)
+        gameData = GameData()
     }
     
     private func makeQuestionsQueue() {
