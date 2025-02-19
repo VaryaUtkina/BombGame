@@ -10,10 +10,14 @@ import Foundation
 final class SettingsManager {
     static let shared = SettingsManager()
 
-    private(set) var settings: Settings
+    private(set) var settings: Settings {
+        didSet {
+            StorageManager.shared.saveSettings(settings)
+        }
+    }
     
     private init() {
-        settings = Settings.defaultSettings
+        settings = StorageManager.shared.loadSettings()
     }
     
     func setGameDuration(_ time: Settings.GameDuration) {
@@ -36,5 +40,13 @@ final class SettingsManager {
     
     func togglePunishments() {
         settings.isPunishmentsEnabled.toggle()
+    }
+    
+    func toggleCategoryIndex(_ index: Int) {
+        if settings.selectedCategoriesIndexes.contains(index) {
+            settings.selectedCategoriesIndexes.remove(index)
+        } else {
+            settings.selectedCategoriesIndexes.insert(index)
+        }
     }
 }

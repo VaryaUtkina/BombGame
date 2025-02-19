@@ -8,7 +8,7 @@
 import Foundation
 
 struct Category: Identifiable, Hashable {
-    let id: UUID
+    let id: Int
     let title: String
     let questions: [String]
     let imageName: String
