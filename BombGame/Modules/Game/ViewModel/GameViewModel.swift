@@ -78,7 +78,6 @@ final class GameViewModel: ObservableObject {
     }
     
     private func onTimerFires() {
-        print(counter)
         if counter < 0 {
             endGame()
         } else {

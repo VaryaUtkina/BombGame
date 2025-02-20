@@ -39,7 +39,6 @@ struct GameView: View {
     }
     
     var body: some View {
-        NavigationStack {
             ZStack {
                 Colors.ComponentsColors.gameBackground
                     .ignoresSafeArea()
@@ -79,7 +78,6 @@ struct GameView: View {
                 .padding(.horizontal, 22.5)
                 .padding(.bottom, 28)
             }
-        }
         .navigationBarBackButtonHidden()
         .navigationDestination(isPresented: $viewModel.shouldMoveToGameEnd) { FinalGameView() }
     }
