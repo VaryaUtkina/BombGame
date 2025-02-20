@@ -40,7 +40,7 @@ struct GameData {
 
         allCategories = [
             Category(
-                id: CategoryKind.movie,
+                id: .movie,
                 title: "Кино и Искусство",
                 questions: [
                     "Назовите фильмы, получившие «Оскар» за лучший фильм",
@@ -62,7 +62,7 @@ struct GameData {
                 imageName: "CategoryMovie"
             ),
             Category(
-                id: CategoryKind.sport,
+                id: .sport,
                 title: "Спорт",
                 questions: [
                     "Назовите зимние виды спорта",
@@ -84,7 +84,7 @@ struct GameData {
                 imageName: "CategorySport"
             ),
             Category(
-                id: CategoryKind.celebrities,
+                id: .celebrities,
                 title: "Знаменитости",
                 questions: [
                     "Назовите популярных певцов",
@@ -106,7 +106,7 @@ struct GameData {
                 imageName: "CategoryСelebrities"
             ),
             Category(
-                id: CategoryKind.nature,
+                id: .nature,
                 title: "Природа",
                 questions: [
                     "Назовите животных, занесённых в Красную книгу",
@@ -128,7 +128,7 @@ struct GameData {
                 imageName: "CategoryNature"
             ),
             Category(
-                id: CategoryKind.aboutLife,
+                id: .aboutLife,
                 title: "Про жизнь",
                 questions: [
                     "Назовите утренние привычки",
@@ -150,7 +150,7 @@ struct GameData {
                 imageName: "CategoryAboutLife"
             ),
             Category(
-                id: CategoryKind.miscellaneous,
+                id: .miscellaneous,
                 title: "О разном",
                 questions: [
                     "Назовите города с населением более 10 миллионов",
@@ -172,7 +172,7 @@ struct GameData {
                 imageName: "CategoryMiscellaneous"
             ),
             Category(
-                id: CategoryKind.science,
+                id: .science,
                 title: "Наука и Технологии",
                 questions: [
                     "Назовите планеты Солнечной системы",
@@ -194,7 +194,7 @@ struct GameData {
                 imageName: "CategoryScience"
             ),
             Category(
-                id: CategoryKind.games,
+                id: .games,
                 title: "Игры и Развлечения",
                 questions: [
                     "Назовите популярные видеоигры",
@@ -216,7 +216,7 @@ struct GameData {
                 imageName: "CategoryGames"
             ),
             Category(
-                id: CategoryKind.own,
+                id: .own,
                 title: "Собственные вопросы",
                 questions: [],
                 imageName: "CategoryOwn"

@@ -11,18 +11,19 @@ import SwiftUI
 struct BombGameApp: App {
     @Environment(\.scenePhase) private var scenePhase
     
+    private let viewModel: AppViewModel
+    
+    init() {
+        viewModel = AppViewModel()
+    }
+    
     var body: some Scene {
         WindowGroup {
             MainView()
         }
         .onChange(of: scenePhase) { newPhase in
             if newPhase == .background {
-                StorageManager.shared.saveSettings(
-                    SettingsManager.shared.settings
-                )
-                StorageManager.shared.saveOwnQuestions(
-                    DataManager.shared.gameData.ownQuestions
-                )
+                viewModel.goToBackround()
             }
         }
     }
