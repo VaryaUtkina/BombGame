@@ -86,6 +86,7 @@ struct GameView: View {
         HStack {
             
             Button {
+                viewModel.pauseGame()
                 dismiss()
             } label: {
                 Image(.backArrow)

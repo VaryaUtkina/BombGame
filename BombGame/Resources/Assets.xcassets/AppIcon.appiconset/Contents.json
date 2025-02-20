@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "bombIcon.jpg",
+      "filename" : "bombIcon.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
