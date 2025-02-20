@@ -18,7 +18,7 @@ struct Settings: Codable {
     var explosionMusic: ExplosionMusic
     var isVibrationEnabled: Bool
     var isPunishmentsEnabled: Bool
-    var selectedCategoriesIndexes: Set<Int>
+    var selectedCategoriesKind: Set<CategoryKind>
     
     static let defaultSettings = Settings(
         gameDuration: .medium,
@@ -27,7 +27,7 @@ struct Settings: Codable {
         explosionMusic: .music1,
         isVibrationEnabled: true,
         isPunishmentsEnabled: true,
-        selectedCategoriesIndexes: []
+        selectedCategoriesKind: []
     )
 }
 

@@ -10,15 +10,20 @@ import Foundation
 final class DataManager {
     static let shared = DataManager()
     
-    private let settingsManager = SettingsManager.shared
-    private let storageManager = StorageManager.shared
+    private let settingsManager: SettingsManager
+    private let storageManager: StorageManager
     
-    private var gameData = GameData()
+    private(set) var gameData: GameData
     
     private var questionQueue: [String] = []
     private var punishmentQueue: [String] = []
     
-    private init() {}
+    private init() {
+        settingsManager = SettingsManager.shared
+        storageManager = StorageManager.shared
+        gameData = GameData()
+        gameData.ownQuestions = storageManager.loadOwnQuestions()
+    }
     
     func getAllCategories() -> [Category] {
         gameData.allCategories
@@ -30,7 +35,7 @@ final class DataManager {
     }
     
     func isActive(_ category: Category) -> Bool {
-        settingsManager.settings.selectedCategoriesIndexes.contains(category.id)
+        settingsManager.settings.selectedCategoriesKind.contains(category.id)
     }
     
     func getQuestion() -> String {
@@ -48,20 +53,23 @@ final class DataManager {
     }
     
     func addOwnQuestion(_ question: String) {
-        storageManager.saveOwnQuestion(question)
-        gameData = GameData()
+        gameData.ownQuestions.append(question)
     }
     
     private func makeQuestionsQueue() {
         (
-            settingsManager.settings.selectedCategoriesIndexes.isEmpty
+            settingsManager.settings.selectedCategoriesKind.isEmpty
             ? gameData.allCategories
             : Array(gameData.allCategories.filter{ category in
-                settingsManager.settings.selectedCategoriesIndexes.contains(category.id)
+                settingsManager.settings.selectedCategoriesKind.contains(category.id)
             })
         )
         .forEach { category in
             questionQueue += category.questions
+        }
+        
+        if settingsManager.settings.selectedCategoriesKind.contains(.own) {
+            questionQueue += gameData.ownQuestions
         }
         
         questionQueue = questionQueue.shuffled()

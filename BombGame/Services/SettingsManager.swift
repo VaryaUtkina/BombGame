@@ -10,11 +10,7 @@ import Foundation
 final class SettingsManager {
     static let shared = SettingsManager()
 
-    private(set) var settings: Settings {
-        didSet {
-            StorageManager.shared.saveSettings(settings)
-        }
-    }
+    private(set) var settings: Settings
     
     private init() {
         settings = StorageManager.shared.loadSettings()
@@ -42,11 +38,11 @@ final class SettingsManager {
         settings.isPunishmentsEnabled.toggle()
     }
     
-    func toggleCategoryIndex(_ index: Int) {
-        if settings.selectedCategoriesIndexes.contains(index) {
-            settings.selectedCategoriesIndexes.remove(index)
+    func toggleCategoryIndex(_ kind: CategoryKind) {
+        if settings.selectedCategoriesKind.contains(kind) {
+            settings.selectedCategoriesKind.remove(kind)
         } else {
-            settings.selectedCategoriesIndexes.insert(index)
+            settings.selectedCategoriesKind.insert(kind)
         }
     }
 }

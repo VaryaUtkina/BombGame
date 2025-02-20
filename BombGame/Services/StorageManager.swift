@@ -8,8 +8,8 @@
 import Foundation
 
 enum Storage: String{
-    case settings = "settings"
-    case questions = "questions"
+    case settings
+    case questions
 }
 
 final class StorageManager {
@@ -41,8 +41,7 @@ final class StorageManager {
         return []
     }
     
-    func saveOwnQuestion(_ question: String) {
-        let questions = loadOwnQuestions() + [question]
+    func saveOwnQuestions(_ questions: [String]) {
         if let encodedQuestions = try? JSONEncoder().encode(questions) {
             UserDefaults.standard.set(encodedQuestions, forKey: Storage.questions.rawValue)
         }
