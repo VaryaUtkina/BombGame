@@ -42,6 +42,12 @@ struct CategoryView: View {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(Color.black, lineWidth: 1)
         )
+        .background(
+            NavigationLink(
+                value: viewModel.category.id,
+                label: { EmptyView() }
+            )
+        )
         
     }
     

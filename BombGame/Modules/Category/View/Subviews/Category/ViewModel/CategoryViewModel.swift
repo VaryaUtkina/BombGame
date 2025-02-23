@@ -13,6 +13,7 @@ final class CategoryViewModel: ObservableObject {
     
     @Published var isActive: Bool
     @Published var showCheckmark: Bool
+    @Published var navigateToOwnCategory = false
     
     init(category: Category, isBlind: Bool = false) {
         self.category = category
@@ -21,6 +22,11 @@ final class CategoryViewModel: ObservableObject {
     }
     
     func toggleActive() {
+        
+        if category.id == .own && !isActive {
+            navigateToOwnCategory = true
+        }
+        
         manager.toggleCategory(category)
         isActive = manager.isActive(category)
         showCheckmark = manager.isActive(category)
