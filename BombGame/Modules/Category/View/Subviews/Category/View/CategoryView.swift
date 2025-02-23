@@ -9,9 +9,13 @@ import SwiftUI
 
 struct CategoryView: View {
     @StateObject private var viewModel: CategoryViewModel
+    @Binding var navigateToOwnCategory: Bool
     
     var body: some View {
-        Button(action: viewModel.toggleActive) {
+        Button(action: {
+            viewModel.toggleActive()
+            navigateToOwnCategory = viewModel.navigateToOwnCategory
+        }) {
             ZStack {
                 VStack {
                     HStack {
@@ -42,21 +46,20 @@ struct CategoryView: View {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(Color.black, lineWidth: 1)
         )
-        .background(
-            NavigationLink(
-                value: viewModel.category.id,
-                label: { EmptyView() }
-            )
-        )
         
     }
     
-    init(category: Category, isBlind: Bool = false) {
+    init(
+        category: Category,
+        isBlind: Bool = false,
+        navigateToOwnCategory: Binding<Bool> = .constant(false)
+    ) {
         _viewModel = StateObject(
             wrappedValue: CategoryViewModel(
                 category: category,
                 isBlind: isBlind
             )
         )
+        _navigateToOwnCategory = navigateToOwnCategory
     }
 }
