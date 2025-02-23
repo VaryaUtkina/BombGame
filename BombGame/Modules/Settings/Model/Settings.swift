@@ -18,6 +18,7 @@ struct Settings: Codable {
     var explosionMusic: ExplosionMusic
     var isVibrationEnabled: Bool
     var isPunishmentsEnabled: Bool
+    var isBackgroundMusicEnable: Bool
     var selectedCategoriesKind: Set<CategoryKind>
     
     static let defaultSettings = Settings(
@@ -27,6 +28,7 @@ struct Settings: Codable {
         explosionMusic: .music1,
         isVibrationEnabled: true,
         isPunishmentsEnabled: true,
+        isBackgroundMusicEnable: true,
         selectedCategoriesKind: []
     )
 }
@@ -41,13 +43,13 @@ extension Settings {
         var duration: CGFloat {
             switch self {
             case .short:
-                10
-            case .medium:
                 30
+            case .medium:
+                45
             case .long:
                 60
             case .random:
-                CGFloat.random(in: 10...60)
+                CGFloat.random(in: 30...60)
             }
         }
     }
