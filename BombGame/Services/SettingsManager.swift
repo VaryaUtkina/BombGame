@@ -9,7 +9,7 @@ import Foundation
 
 final class SettingsManager {
     static let shared = SettingsManager()
-
+    
     private(set) var settings: Settings
     
     private init() {
@@ -36,6 +36,10 @@ final class SettingsManager {
     
     func togglePunishments() {
         settings.isPunishmentsEnabled.toggle()
+    }
+    
+    func toggleBackgroundMucis() {
+        settings.isBackgroundMusicEnable.toggle()
     }
     
     func toggleCategoryIndex(_ kind: CategoryKind) {

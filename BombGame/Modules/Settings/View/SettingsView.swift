@@ -20,8 +20,6 @@ struct SettingsView: View {
         BackgroundView {
             ScrollView {
                 VStack(spacing: 18) {
-                    Spacer()
-                        .frame(height: 20)
                     SettingsSection {
                         VStack {
                             HStack {
@@ -85,6 +83,11 @@ struct SettingsView: View {
                     
                     SettingsSection {
                         VStack(spacing: 18) {
+                            ToggleStackView(
+                                toggleState: $viewModel.isBackgroundMusicEnable,
+                                function: viewModel.toggleBackgroundMusic,
+                                title: "Фоновая музыка"
+                            )
                             ToggleStackView(
                                 toggleState: $viewModel.isVibrationOn,
                                 function: viewModel.toggleVibration,
