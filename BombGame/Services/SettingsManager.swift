@@ -38,6 +38,10 @@ final class SettingsManager {
         settings.isPunishmentsEnabled.toggle()
     }
     
+    func toggleBackgroundMucis() {
+        settings.isBackgroundMusicEnable.toggle()
+    }
+    
     func toggleCategoryIndex(_ kind: CategoryKind) {
         if settings.selectedCategoriesKind.contains(kind) {
             settings.selectedCategoriesKind.remove(kind)

@@ -13,6 +13,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var currentDuration: String = SettingsManager.shared.settings.gameDuration.rawValue
     @Published var isVibrationOn: Bool = SettingsManager.shared.settings.isVibrationEnabled
     @Published var isPunishmentsOn: Bool = SettingsManager.shared.settings.isPunishmentsEnabled
+    @Published var isBackgroundMusicEnable: Bool = SettingsManager.shared.settings.isBackgroundMusicEnable
     
     let durations = Settings.GameDuration.allCases.map{ $0.rawValue }
     
@@ -32,6 +33,10 @@ final class SettingsViewModel: ObservableObject {
     
     func togglePunishments() {
         manager.togglePunishments()
+    }
+    
+    func toggleBackgroundMusic() {
+        manager.toggleBackgroundMucis()
     }
     
 }
