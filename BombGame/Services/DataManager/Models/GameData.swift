@@ -12,7 +12,7 @@ struct GameData {
     let allCategories: [Category]
     
     var ownQuestions: [String] = []
-
+    
     init() {
         punishments = [
             "Признайся в любви на корявом французском тому, кто справа",
@@ -119,7 +119,7 @@ struct GameData {
             "Станцуй, как будто только что услышал свою любимую песню",
             "Пройди по комнате, изображая пиратского попугая"
         ]
-
+        
         allCategories = [
             Category(
                 id: .movie,

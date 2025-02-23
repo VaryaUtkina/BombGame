@@ -9,7 +9,7 @@ import Foundation
 
 final class SettingsManager {
     static let shared = SettingsManager()
-
+    
     private(set) var settings: Settings
     
     private init() {
