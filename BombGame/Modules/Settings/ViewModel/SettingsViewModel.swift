@@ -8,14 +8,22 @@
 import Foundation
 
 final class SettingsViewModel: ObservableObject {
-    private let manager = SettingsManager.shared
+    private let manager: SettingsManager
     
-    @Published var currentDuration: String = SettingsManager.shared.settings.gameDuration.rawValue
-    @Published var isVibrationOn: Bool = SettingsManager.shared.settings.isVibrationEnabled
-    @Published var isPunishmentsOn: Bool = SettingsManager.shared.settings.isPunishmentsEnabled
-    @Published var isBackgroundMusicEnable: Bool = SettingsManager.shared.settings.isBackgroundMusicEnable
+    @Published var currentDuration: String
+    @Published var isVibrationOn: Bool
+    @Published var isPunishmentsOn: Bool
+    @Published var isBackgroundMusicEnable: Bool
     
     let durations = Settings.GameDuration.allCases.map{ $0.rawValue }
+    
+    init() {
+        manager = SettingsManager.shared
+        currentDuration = manager.settings.gameDuration.rawValue
+        isVibrationOn = manager.settings.isVibrationEnabled
+        isPunishmentsOn = manager.settings.isPunishmentsEnabled
+        isBackgroundMusicEnable = manager.settings.isBackgroundMusicEnable
+    }
     
     func changeDuration(_ duration: String) {
         for item in Settings.GameDuration.allCases {
