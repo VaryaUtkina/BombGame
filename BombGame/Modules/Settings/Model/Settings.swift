@@ -41,13 +41,13 @@ extension Settings {
         var duration: CGFloat {
             switch self {
             case .short:
-                10
-            case .medium:
                 30
+            case .medium:
+                45
             case .long:
                 60
             case .random:
-                CGFloat.random(in: 10...60)
+                CGFloat.random(in: 30...60)
             }
         }
     }
