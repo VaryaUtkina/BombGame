@@ -13,9 +13,30 @@ struct OwnQuestionsView: View {
     private let viewModel = OwnQuestionsViewModel()
     
     var body: some View {
-        Text("TEST")
-        List(viewModel.manager.gameData.ownQuestions, id: \.self) { question in
-            Text(question)
+        VStack {
+            List(viewModel.manager.gameData.ownQuestions, id: \.self) { question in
+                Text(question)
+            }
+            
+            
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { dismiss() }) {
+                    Image(systemName: "chevron.left")
+                        .resizable()
+                        .frame(width: 12, height: 20)
+                        .foregroundStyle(Color.primaryText)
+                        .font(.title.weight(.bold))
+                }
+            }
+            ToolbarItem(placement: .principal) {
+                Text("Собственные вопросы")
+                    .font(Font.customFont(size: 30).weight(.black))
+                    .foregroundStyle(Color.primaryText)
+                    .minimumScaleFactor(0.3)
+            }
         }
         
     }
