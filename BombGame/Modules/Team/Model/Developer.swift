@@ -12,4 +12,5 @@ struct Developer {
     let role: String
     let image: String
     let description: String
+    let gitHub: String
 }

@@ -92,11 +92,26 @@ struct DeveloperCard: View {
                     Spacer()
                 }
                 
-                Text(developer.description)
-                    .font(Font.customFont(size: 14).weight(.semibold))
-                    .foregroundStyle(Colors.TextColors.primary)
-                    .multilineTextAlignment(.leading)
-                    .padding(.top, 8)
+                VStack(spacing: 8) {
+                    HStack {
+                        Text(developer.description)
+                            .font(Font.customFont(size: 14).weight(.semibold))
+                            .foregroundStyle(Colors.TextColors.primary)
+                            .multilineTextAlignment(.leading)
+                            .padding(.top, 8)
+                        
+                        Spacer()
+                    }
+                    
+                    if let url = URL(string: developer.gitHub) {
+                        Link(developer.gitHub, destination: url)
+                            .font(Font.customFont(size: 14).weight(.semibold))
+                            .foregroundStyle(.blue)
+                            .multilineTextAlignment(.leading)
+                    }
+                }
+                
+                
             }
             .padding(16)
         }
