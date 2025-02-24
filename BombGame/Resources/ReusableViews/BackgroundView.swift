@@ -15,18 +15,16 @@ struct BackgroundView<Content: View>: View {
     }
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Colors.ComponentsColors.gameBackground
-                    .ignoresSafeArea()
-                
-                CurvedShape()
-                    .ignoresSafeArea()
-                    .foregroundStyle(.curvedShape)
-                
-                VStack {
-                    content
-                }
+        ZStack {
+            Colors.ComponentsColors.gameBackground
+                .ignoresSafeArea()
+            
+            CurvedShape()
+                .ignoresSafeArea()
+                .foregroundStyle(.curvedShape)
+            
+            VStack {
+                content
             }
         }
     }
