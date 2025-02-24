@@ -18,11 +18,7 @@ struct CategoriesView: View {
     ]
     
     var body: some View {
-        ZStack {
-            Image("CategoryBackground")
-                .resizable()
-                .ignoresSafeArea(edges: .all)
-            
+        BackgroundView {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 34) {
                     ForEach(viewModel.categories) { category in

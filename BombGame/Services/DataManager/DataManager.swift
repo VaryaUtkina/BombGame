@@ -56,6 +56,12 @@ final class DataManager {
         gameData.ownQuestions.append(question)
     }
     
+    func deleteOwnQuestion(at question: String) {
+        if let index = gameData.ownQuestions.firstIndex(of: question) {
+            gameData.ownQuestions.remove(at: index)
+        }
+    }
+    
     private func makeQuestionsQueue() {
         (
             settingsManager.settings.selectedCategoriesKind.isEmpty
