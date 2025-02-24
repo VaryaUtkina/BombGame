@@ -14,6 +14,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var isVibrationOn: Bool
     @Published var isPunishmentsOn: Bool
     @Published var isBackgroundMusicEnable: Bool
+    @Published var isTeamPresented = false
     
     let durations = Settings.GameDuration.allCases.map{ $0.rawValue }
     
@@ -47,4 +48,7 @@ final class SettingsViewModel: ObservableObject {
         manager.toggleBackgroundMucis()
     }
     
+    func openTeam() {
+        isTeamPresented.toggle()
+    }
 }

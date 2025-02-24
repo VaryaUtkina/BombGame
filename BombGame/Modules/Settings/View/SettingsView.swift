@@ -102,6 +102,14 @@ struct SettingsView: View {
                         }
                         .padding()
                     }
+                    
+                    ButtonView(title: "О разработчиках") {
+                        viewModel.openTeam()
+                    }
+                    .sheet(isPresented: $viewModel.isTeamPresented) {
+                        TeamView()
+                            .presentationDetents([.fraction(0.87)])
+                    }
                 }
             }
             
