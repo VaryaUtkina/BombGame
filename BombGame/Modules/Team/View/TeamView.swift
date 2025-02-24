@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct TeamView: View {
+    @StateObject private var viewModel = TeamViewModel(
+        model: TeamModel(),
+        dataManager: DataManager.shared
+    )
+    
     let developers = ["Варя", "Дима", "Никита", "Серёжа"]
     
     var body: some View {
@@ -46,7 +51,7 @@ struct TeamView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("Создатели игры")
+                    Text(viewModel.model.text.navTitle)
                         .font(Font.customFont(size: 30).weight(.black))
                         .foregroundStyle(Colors.TextColors.primary)
                 }
