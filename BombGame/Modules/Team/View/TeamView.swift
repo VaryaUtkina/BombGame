@@ -15,20 +15,24 @@ struct TeamView: View {
     
     var body: some View {
         BackgroundView {
-            ScrollView {
-                VStack(spacing: 18) {
-                    descriptionSection
-                    
-                    ForEach(viewModel.developers, id: \.name) { developer in
-                        DeveloperCard(developer: developer)
+            VStack {
+                RoundedRectangle(cornerRadius: 1.5)
+                    .fill(Color.primaryText)
+                    .frame(width: 68, height: 3)
+                    .padding(.top, 18)
+                
+                ScrollView {
+                    VStack(spacing: 18) {
+                        Text(viewModel.model.text.navTitle)
+                            .font(Font.customFont(size: 30).weight(.black))
+                            .foregroundStyle(Colors.TextColors.primary)
+                        
+                        descriptionSection
+                        
+                        ForEach(viewModel.developers, id: \.name) { developer in
+                            DeveloperCard(developer: developer)
+                        }
                     }
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text(viewModel.model.text.navTitle)
-                        .font(Font.customFont(size: 30).weight(.black))
-                        .foregroundStyle(Colors.TextColors.primary)
                 }
             }
         }
