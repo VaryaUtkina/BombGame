@@ -50,8 +50,10 @@ final class GameViewModel: ObservableObject {
         topText = dataManager.getQuestion()
         let tickMusic = settingsManager.settings.tickMusic.fileName
         audioPlayer.playSound(file: tickMusic, loopsNumber: -1)
-        let backgroundMusic = settingsManager.settings.backgroundMusic.fileName
-        audioPlayer.playBackgroundSound(file: backgroundMusic)
+        if settingsManager.settings.isBackgroundMusicEnable {
+            let backgroundMusic = settingsManager.settings.backgroundMusic.fileName
+            audioPlayer.playBackgroundSound(file: backgroundMusic)
+        }
         counter = gameDuration + timeToFinishAnimation
         startTimer()
     }
@@ -60,6 +62,12 @@ final class GameViewModel: ObservableObject {
         isGamePaused.toggle()
         isGamePaused ? timer?.invalidate() : startTimer()
         audioPlayer.isPlaying ? audioPlayer.pause() : audioPlayer.play()
+    }
+    
+    func dismiss() {
+        if isGameLaunched, !isGamePaused {
+            pauseGame()
+        }
     }
     
     private func endGame() {
@@ -78,7 +86,6 @@ final class GameViewModel: ObservableObject {
     }
     
     private func onTimerFires() {
-        print(counter)
         if counter < 0 {
             endGame()
         } else {

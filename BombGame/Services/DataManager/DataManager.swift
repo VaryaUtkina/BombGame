@@ -10,28 +10,32 @@ import Foundation
 final class DataManager {
     static let shared = DataManager()
     
-    private let data = Data()
+    private let settingsManager: SettingsManager
+    private let storageManager: StorageManager
     
-    private var selectedCategories: Set<Category> = []
+    private(set) var gameData: GameData
+    
     private var questionQueue: [String] = []
     private var punishmentQueue: [String] = []
     
-    private init() {}
+    private init() {
+        settingsManager = SettingsManager.shared
+        storageManager = StorageManager.shared
+        gameData = GameData()
+        gameData.ownQuestions = storageManager.loadOwnQuestions()
+    }
     
     func getAllCategories() -> [Category] {
-        data.allCategories
+        gameData.allCategories
     }
     
     func toggleCategory(_ category: Category) {
-        if selectedCategories.contains(category) {
-            selectedCategories.remove(category)
-        } else {
-            selectedCategories.insert(category)
-        }
+        settingsManager.toggleCategoryIndex(category.id)
+        questionQueue.removeAll()
     }
     
     func isActive(_ category: Category) -> Bool {
-        selectedCategories.contains(category)
+        settingsManager.settings.selectedCategoriesKind.contains(category.id)
     }
     
     func getQuestion() -> String {
@@ -43,15 +47,31 @@ final class DataManager {
     
     func getPunishments() -> String {
         if punishmentQueue.isEmpty {
-            punishmentQueue = data.punishments.shuffled()
+            punishmentQueue = gameData.punishments.shuffled()
         }
         return punishmentQueue.removeLast()
     }
     
+    func addOwnQuestion(_ question: String) {
+        gameData.ownQuestions.append(question)
+    }
+    
     private func makeQuestionsQueue() {
-        (selectedCategories.isEmpty ? data.allCategories : Array(selectedCategories)).forEach { category in
+        (
+            settingsManager.settings.selectedCategoriesKind.isEmpty
+            ? gameData.allCategories
+            : Array(gameData.allCategories.filter{ category in
+                settingsManager.settings.selectedCategoriesKind.contains(category.id)
+            })
+        )
+        .forEach { category in
             questionQueue += category.questions
         }
+        
+        if settingsManager.settings.selectedCategoriesKind.contains(.own) {
+            questionQueue += gameData.ownQuestions
+        }
+        
         questionQueue = questionQueue.shuffled()
     }
 }

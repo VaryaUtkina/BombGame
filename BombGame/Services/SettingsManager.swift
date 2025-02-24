@@ -9,11 +9,11 @@ import Foundation
 
 final class SettingsManager {
     static let shared = SettingsManager()
-
+    
     private(set) var settings: Settings
     
     private init() {
-        settings = Settings.defaultSettings
+        settings = StorageManager.shared.loadSettings()
     }
     
     func setGameDuration(_ time: Settings.GameDuration) {
@@ -36,5 +36,17 @@ final class SettingsManager {
     
     func togglePunishments() {
         settings.isPunishmentsEnabled.toggle()
+    }
+    
+    func toggleBackgroundMucis() {
+        settings.isBackgroundMusicEnable.toggle()
+    }
+    
+    func toggleCategoryIndex(_ kind: CategoryKind) {
+        if settings.selectedCategoriesKind.contains(kind) {
+            settings.selectedCategoriesKind.remove(kind)
+        } else {
+            settings.selectedCategoriesKind.insert(kind)
+        }
     }
 }
