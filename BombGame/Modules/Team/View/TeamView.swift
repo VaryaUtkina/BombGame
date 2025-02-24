@@ -13,30 +13,35 @@ struct TeamView: View {
     var body: some View {
         BackgroundView {
             ScrollView {
-                ForEach(developers, id: \.self) { developer in
-                    VStack {
-                        HStack {
-                            Image(systemName: "person.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 150, height: 150)
-                                .foregroundStyle(.gray)
-                                .background(.blue)
-                                .clipShape(.rect(cornerRadius: 75))
-                                .shadow(color: Colors.TextColors.primary, radius: 10)
-                            
-                            Text(developer)
-                                .font(Font.customFont(size: 28).weight(.semibold))
-                                .foregroundStyle(Colors.TextColors.primary)
-                            
-                            Spacer()
+                VStack(spacing: 18) {
+                    ForEach(developers, id: \.self) { developer in
+                        SettingsSection {
+                            VStack {
+                                HStack {
+                                    Image(systemName: "person.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 150, height: 150)
+                                        .foregroundStyle(.gray)
+                                        .background(.blue)
+                                        .clipShape(.rect(cornerRadius: 75))
+                                        .shadow(
+                                            color: .black.opacity(0.25),
+                                            radius: 2,
+                                            x: 0,
+                                            y: 4
+                                        )
+                                    
+                                    Text(developer)
+                                        .font(Font.customFont(size: 28).weight(.semibold))
+                                        .foregroundStyle(Colors.TextColors.primary)
+                                    
+                                    Spacer()
+                                }
+                            }
+                            .padding(16)
                         }
-                        
-                        Rectangle()
-                            .frame(height: 2)
-                            .foregroundStyle(Colors.ComponentsColors.gameViewButton)
                     }
-                    .padding(.horizontal, 16)
                 }
             }
             .toolbar {
