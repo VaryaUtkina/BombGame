@@ -11,6 +11,9 @@ final class TeamViewModel: ObservableObject {
     @Published var model: TeamModel
     
     let navTitle: String
+    let description: String
+    let linkText: String
+    let link: String
     
     private let dataManager: DataManager
     
@@ -18,5 +21,8 @@ final class TeamViewModel: ObservableObject {
         self.model = model
         self.dataManager = dataManager
         navTitle = model.text.navTitle
+        description = model.text.description
+        linkText = model.text.linkText
+        link = model.text.link
     }
 }

@@ -19,6 +19,19 @@ struct TeamView: View {
         BackgroundView {
             ScrollView {
                 VStack(spacing: 18) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(viewModel.description)
+                            .font(Font.customFont(size: 18).weight(.semibold))
+                            .foregroundStyle(Colors.TextColors.primary)
+                        
+                        if let url = URL(string: viewModel.link) {
+                            Link(viewModel.linkText, destination: url)
+                                .font(Font.customFont(size: 18).weight(.semibold))
+                                .foregroundStyle(.blue)
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                    
                     ForEach(developers, id: \.self) { developer in
                         SettingsSection {
                             VStack {
