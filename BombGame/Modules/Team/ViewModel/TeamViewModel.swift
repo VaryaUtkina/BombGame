@@ -14,12 +14,14 @@ final class TeamViewModel: ObservableObject {
     let description: String
     let linkText: String
     let link: String
+    let developers: [Developer]
     
     private let dataManager: DataManager
     
     init(model: TeamModel, dataManager: DataManager) {
         self.model = model
         self.dataManager = dataManager
+        self.developers = dataManager.gameData.developers
         navTitle = model.text.navTitle
         description = model.text.description
         linkText = model.text.linkText

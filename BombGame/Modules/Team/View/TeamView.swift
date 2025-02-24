@@ -13,52 +13,14 @@ struct TeamView: View {
         dataManager: DataManager.shared
     )
     
-    let developers = ["Варя", "Дима", "Никита", "Серёжа"]
-    
     var body: some View {
         BackgroundView {
             ScrollView {
                 VStack(spacing: 18) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(viewModel.description)
-                            .font(Font.customFont(size: 18).weight(.semibold))
-                            .foregroundStyle(Colors.TextColors.primary)
-                        
-                        if let url = URL(string: viewModel.link) {
-                            Link(viewModel.linkText, destination: url)
-                                .font(Font.customFont(size: 18).weight(.semibold))
-                                .foregroundStyle(.blue)
-                        }
-                    }
-                    .padding(.horizontal, 16)
+                    descriptionSection
                     
-                    ForEach(developers, id: \.self) { developer in
-                        SettingsSection {
-                            VStack {
-                                HStack {
-                                    Image(systemName: "person.fill")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 150, height: 150)
-                                        .foregroundStyle(.gray)
-                                        .background(.blue)
-                                        .clipShape(.rect(cornerRadius: 75))
-                                        .shadow(
-                                            color: .black.opacity(0.25),
-                                            radius: 2,
-                                            x: 0,
-                                            y: 4
-                                        )
-                                    
-                                    Text(developer)
-                                        .font(Font.customFont(size: 28).weight(.semibold))
-                                        .foregroundStyle(Colors.TextColors.primary)
-                                    
-                                    Spacer()
-                                }
-                            }
-                            .padding(16)
-                        }
+                    ForEach(viewModel.developers, id: \.name) { developer in
+                        DeveloperCard(developer: developer)
                     }
                 }
             }
@@ -70,6 +32,71 @@ struct TeamView: View {
                 }
             }
         }
+    }
+    
+    private var descriptionSection: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Text(viewModel.description)
+                    .font(Font.customFont(size: 18).weight(.semibold))
+                    .foregroundStyle(Colors.TextColors.primary)
+                
+                Spacer()
+            }
+            
+            if let url = URL(string: viewModel.link) {
+                Link(viewModel.linkText, destination: url)
+                    .font(Font.customFont(size: 18).weight(.semibold))
+                    .foregroundStyle(.blue)
+            }
+        }
+        .padding(.horizontal, 16)
+    }
+}
+
+struct DeveloperCard: View {
+    let developer: Developer
+    
+    var body: some View {
+        SettingsSection {
+            VStack {
+                HStack(spacing: 18) {
+                    Image(developer.image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 130, height: 130)
+                        .foregroundStyle(.gray)
+                        .background(.blue)
+                        .clipShape(.rect(cornerRadius: 75))
+                        .shadow(
+                            color: .black.opacity(0.25),
+                            radius: 2,
+                            x: 0,
+                            y: 4
+                        )
+                    
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(developer.name)
+                            .font(Font.customFont(size: 28).weight(.semibold))
+                            .foregroundStyle(Colors.TextColors.primary)
+                        
+                        Text(developer.role)
+                            .font(Font.customFont(size: 16).weight(.semibold))
+                            .foregroundStyle(Colors.TextColors.primary)
+                    }
+                    
+                    Spacer()
+                }
+                
+                Text(developer.description)
+                    .font(Font.customFont(size: 14).weight(.semibold))
+                    .foregroundStyle(Colors.TextColors.primary)
+                    .multilineTextAlignment(.leading)
+                    .padding(.top, 8)
+            }
+            .padding(16)
+        }
+        .padding(.bottom, 16)
     }
 }
 
