@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct TeamView: View {
-    @StateObject private var viewModel = TeamViewModel(
-        model: TeamModel(),
-        dataManager: DataManager.shared
-    )
+    @StateObject private var viewModel = TeamViewModel(model: TeamModel())
     
     var body: some View {
         BackgroundView {
             VStack {
                 RoundedRectangle(cornerRadius: 1.5)
-                    .fill(Color.primaryText)
+                    .fill(Colors.TextColors.primary)
                     .frame(width: 68, height: 3)
                     .padding(.top, 18)
                 
@@ -29,8 +26,11 @@ struct TeamView: View {
                         
                         descriptionSection
                         
-                        ForEach(viewModel.developers, id: \.name) { developer in
-                            DeveloperCard(developer: developer)
+                        ForEach(
+                            viewModel.model.developers,
+                            id: \.name
+                        ) { developer in
+                            DeveloperView(developer: developer)
                         }
                     }
                 }
@@ -41,81 +41,26 @@ struct TeamView: View {
     private var descriptionSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                Text(viewModel.description)
+                Text(viewModel.model.text.description)
                     .font(Font.customFont(size: 18).weight(.semibold))
                     .foregroundStyle(Colors.TextColors.primary)
                 
                 Spacer()
             }
             
-            if let url = URL(string: viewModel.link) {
-                Link(viewModel.linkText, destination: url)
-                    .font(Font.customFont(size: 18).weight(.semibold))
-                    .foregroundStyle(.blue)
+            if let url = URL(string: viewModel.model.text.link) {
+                Link(destination: url) {
+                    Text(viewModel.model.text.linkText)
+                        .font(Font.customFont(size: 18).weight(.semibold))
+                        .foregroundStyle(Colors.ComponentsColors.mainBackground)
+                        .shadow(color: .black, radius: 0.5)
+                        .shadow(color: .black, radius: 0.5)
+                        .shadow(color: .black, radius: 0.5)
+                        .shadow(color: .black, radius: 0.5)
+                }
             }
         }
         .padding(.horizontal, 16)
-    }
-}
-
-struct DeveloperCard: View {
-    let developer: Developer
-    
-    var body: some View {
-        SettingsSection {
-            VStack {
-                HStack(spacing: 18) {
-                    Image(developer.image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 130, height: 130)
-                        .foregroundStyle(.gray)
-                        .background(.blue)
-                        .clipShape(.rect(cornerRadius: 75))
-                        .shadow(
-                            color: .black.opacity(0.25),
-                            radius: 2,
-                            x: 0,
-                            y: 4
-                        )
-                    
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text(developer.name)
-                            .font(Font.customFont(size: 28).weight(.semibold))
-                            .foregroundStyle(Colors.TextColors.primary)
-                        
-                        Text(developer.role)
-                            .font(Font.customFont(size: 16).weight(.semibold))
-                            .foregroundStyle(Colors.TextColors.primary)
-                    }
-                    
-                    Spacer()
-                }
-                
-                VStack(spacing: 8) {
-                    HStack {
-                        Text(developer.description)
-                            .font(Font.customFont(size: 14).weight(.semibold))
-                            .foregroundStyle(Colors.TextColors.primary)
-                            .multilineTextAlignment(.leading)
-                            .padding(.top, 8)
-                        
-                        Spacer()
-                    }
-                    
-                    if let url = URL(string: developer.gitHub) {
-                        Link(developer.gitHub, destination: url)
-                            .font(Font.customFont(size: 14).weight(.semibold))
-                            .foregroundStyle(.blue)
-                            .multilineTextAlignment(.leading)
-                    }
-                }
-                
-                
-            }
-            .padding(16)
-        }
-        .padding(.bottom, 16)
     }
 }
 
