@@ -53,6 +53,7 @@ final class DataManager {
     }
     
     func addOwnQuestion(_ question: String) {
+        guard !gameData.ownQuestions.contains(question) else { return }
         gameData.ownQuestions.append(question)
     }
     

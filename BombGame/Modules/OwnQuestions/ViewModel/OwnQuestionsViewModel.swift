@@ -8,13 +8,15 @@
 import Foundation
 
 final class OwnQuestionsViewModel: ObservableObject {
+    @Published var model: OwnQuestionsModel
     @Published var inputText: String = ""
     @Published var questions: [String] = []
     
     let manager: DataManager
     let maximumInputTextCount = 150
     
-    init() {
+    init(model: OwnQuestionsModel) {
+        self.model = model
         manager = DataManager.shared
         questions = manager.gameData.ownQuestions
     }

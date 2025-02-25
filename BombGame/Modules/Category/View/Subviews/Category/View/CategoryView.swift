@@ -9,12 +9,12 @@ import SwiftUI
 
 struct CategoryView: View {
     @StateObject private var viewModel: CategoryViewModel
-    @Binding var navigateToOwnCategory: Bool
+    @Binding var shouldNavigateToOwnCategory: Bool
     
     var body: some View {
         Button(action: {
             viewModel.toggleActive()
-            navigateToOwnCategory = viewModel.navigateToOwnCategory
+            shouldNavigateToOwnCategory = viewModel.navigateToOwnCategory
         }) {
             ZStack {
                 VStack {
@@ -60,6 +60,6 @@ struct CategoryView: View {
                 isBlind: isBlind
             )
         )
-        _navigateToOwnCategory = navigateToOwnCategory
+        _shouldNavigateToOwnCategory = navigateToOwnCategory
     }
 }

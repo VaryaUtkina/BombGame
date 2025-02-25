@@ -10,7 +10,7 @@ import SwiftUI
 struct CategoriesView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel = CategoriesViewModel()
-    @State private var navigateToOwnCategory = false
+    @State private var shouldNavigateToOwnCategory = false
     
     private let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 23),
@@ -24,7 +24,7 @@ struct CategoriesView: View {
                     ForEach(viewModel.categories) { category in
                         CategoryView(
                             category: category,
-                            navigateToOwnCategory: $navigateToOwnCategory
+                            navigateToOwnCategory: $shouldNavigateToOwnCategory
                         )
                         .frame(height: 150)
                         .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
@@ -32,7 +32,7 @@ struct CategoriesView: View {
                 }
                 .padding(.horizontal, 23)
             }
-            .navigationDestination(isPresented: $navigateToOwnCategory) {
+            .navigationDestination(isPresented: $shouldNavigateToOwnCategory) {
                 OwnQuestionsView()
             }
             

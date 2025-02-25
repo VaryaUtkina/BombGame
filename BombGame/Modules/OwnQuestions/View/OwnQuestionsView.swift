@@ -10,100 +10,31 @@ import SwiftUI
 struct OwnQuestionsView: View {
     @Environment(\.dismiss) var dismiss
     @FocusState private var fieldIsFocused: Bool
-    @StateObject private var viewModel = OwnQuestionsViewModel()
+    @StateObject private var viewModel = OwnQuestionsViewModel(model: OwnQuestionsModel())
     
     var body: some View {
         BackgroundView {
             ScrollView {
                 ForEach(viewModel.questions, id: \.self) { question in
-                    ZStack {
-                        HStack {
-                            Text(question)
-                                .font(Font.customFont(size: 20).weight(.medium))
-                                .foregroundStyle(Color.primaryText)
-                                .padding(16)
-                            
-                            Spacer()
+                    OwnQuestionView(
+                        text: question,
+                        onDelete: {
+                            withAnimation { viewModel.deleteQuestion(question) }
                         }
-                        .frame(maxWidth: .infinity)
-                        .background(Color.categoryCellBg)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.primaryText, lineWidth: 1)
-                        )
-                        .padding(.horizontal, 18)
-                        .padding(.vertical, 4)
-                        .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
-                        
-                        VStack {
-                            HStack {
-                                Spacer()
-                                
-                                Button(action: {
-                                    withAnimation {
-                                        viewModel.deleteQuestion(question)
-                                    }
-                                }) {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .foregroundColor(Color.gameViewButton)
-                                        .background(Color.primaryText)
-                                        .clipShape(Circle())
-                                        .overlay(
-                                            Circle()
-                                                .stroke(Color.black, lineWidth: 1)
-                                        )
-                                }
-                                .frame(width: 20, height: 20)
-                            }
-                            .padding(.horizontal, 18)
-                            
-                            Spacer()
-                        }
-                    }
+                    )
+                    .padding(.vertical, 4)
                 }
+                .padding(.horizontal, 16)
             }
             
-            HStack {
-                ZStack {
-                    TextField(
-                        "Введите вопрос",
-                        text: $viewModel.inputText
-                    )
-                    .font(Font.customFont(size: 20).weight(.medium))
-                    .foregroundStyle(Color.primaryText)
-                    .padding(8)
-                    .submitLabel(.done)
-                    .focused($fieldIsFocused)
-                    .onSubmit {
-                        viewModel.saveQuestion()
-                        fieldIsFocused = false
-                        
-                    }
-                    .onChange(of: viewModel.inputText) { newValue in
-                        if newValue.count > viewModel.maximumInputTextCount {
-                            viewModel.inputText = String(
-                                newValue.prefix(viewModel.maximumInputTextCount)
-                            )
-                        }
-                    }
+            OwnTextField(
+                text: $viewModel.inputText,
+                placeholder: viewModel.model.texts.placeholder,
+                maxCount: viewModel.maximumInputTextCount,
+                onSubmit: {
+                    viewModel.saveQuestion()
                 }
-                .background(Color.gameViewButton)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(lineWidth: 1)
-                        .foregroundStyle(Color.primaryText)
-                )
-                
-                Text("\(viewModel.inputText.count) / \(viewModel.maximumInputTextCount)")
-                    .font(Font.customFont(size: 14).weight(.thin))
-                    .foregroundStyle(Color.primaryText)
-                    .lineLimit(1)
-                    .frame(width: 60, alignment: .trailing)
-            }
+            )
             .padding(.horizontal, 16)
         }
         .navigationBarBackButtonHidden(true)
@@ -118,14 +49,15 @@ struct OwnQuestionsView: View {
                 }
             }
             ToolbarItem(placement: .principal) {
-                Text("Собственные вопросы")
+                Text(viewModel.model.texts.title)
                     .font(Font.customFont(size: 30).weight(.black))
                     .foregroundStyle(Color.primaryText)
                     .minimumScaleFactor(0.3)
             }
         }
-        
     }
+    
+    
 }
 
 #Preview {
