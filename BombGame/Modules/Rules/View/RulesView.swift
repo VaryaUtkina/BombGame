@@ -11,18 +11,7 @@ struct RulesView: View {
     @StateObject var viewModel = RulesViewModel(model: Rules())
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 40)
-                .foregroundStyle(.categoryCellBg)
-                .ignoresSafeArea()
-            
-            Image(.mainbackgroundShape)
-                .resizable()
-                .scaledToFill()
-                .clipShape(RoundedRectangle(cornerRadius: 40))
-                .opacity(0.3)
-                .ignoresSafeArea()
-            
+        BackgroundView {
             VStack {
                 RoundedRectangle(cornerRadius: 1.5)
                     .fill(Color.primaryText)
@@ -34,6 +23,7 @@ struct RulesView: View {
                         
                         Text(viewModel.title)
                             .font(Font.customFont(size: 32).weight(.black))
+                            .foregroundStyle(Color.primaryText)
                             .multilineTextAlignment(.center)
                             .minimumScaleFactor(0.5)
                         

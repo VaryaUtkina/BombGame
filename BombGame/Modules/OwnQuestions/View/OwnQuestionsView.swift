@@ -30,7 +30,7 @@ struct OwnQuestionsView: View {
                             .padding(.horizontal, 16)
                         }
                         .padding(.top, getTopPadding())
-                        .padding(.bottom, 60)
+                        .padding(.bottom, 70)
                     }
                 }
             }
