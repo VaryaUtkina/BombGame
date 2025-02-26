@@ -22,7 +22,7 @@ struct OwnQuestionsView: View {
                             withAnimation { viewModel.deleteQuestion(question) }
                         }
                     )
-                    .padding(.vertical, 4)
+                    .padding(.top, 8)
                 }
                 .padding(.horizontal, 16)
             }
@@ -36,6 +36,7 @@ struct OwnQuestionsView: View {
                 }
             )
             .padding(.horizontal, 16)
+            .padding(.vertical, 8)
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -52,7 +53,7 @@ struct OwnQuestionsView: View {
                 Text(viewModel.model.texts.title)
                     .font(Font.customFont(size: 30).weight(.black))
                     .foregroundStyle(Color.primaryText)
-                    .minimumScaleFactor(0.3)
+                    .minimumScaleFactor(0.8)
             }
         }
     }

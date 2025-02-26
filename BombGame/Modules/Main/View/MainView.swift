@@ -41,16 +41,17 @@ struct MainView: View {
                     VStack(spacing: 10) {
                         NavigationLink(destination: GameView()) {
                             MainButton(text: viewModel.texts.startGame)
+                                .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
                         }
                         
                         NavigationLink(destination: CategoriesView()) {
                             MainButton(text: viewModel.texts.categories)
+                                .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
                         }
                     }
-
                     .padding(.horizontal, 23)
                     
-                    Spacer(minLength: 40)
+                    Spacer(minLength: 64)
                 }
                 .padding(.top, 60)
                 .padding(.bottom, 70)
