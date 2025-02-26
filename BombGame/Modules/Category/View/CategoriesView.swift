@@ -20,7 +20,7 @@ struct CategoriesView: View {
     var body: some View {
         BackgroundView {
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 34) {
+                LazyVGrid(columns: columns, spacing: 14) {
                     ForEach(viewModel.categories) { category in
                         CategoryView(
                             category: category,
@@ -28,6 +28,14 @@ struct CategoriesView: View {
                         )
                         .frame(height: 150)
                         .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
+                        .padding(.bottom, 20)
+                        .padding(
+                            .top, (UIDevice.current.systemVersion.starts(with: "16") ||
+                                        UIDevice.current.systemVersion.starts(with: "17")) &&
+                                 (category.id == .movie || category.id == .sport)
+                                 ? 50
+                                 : 0
+                        )
                     }
                 }
                 .padding(.horizontal, 23)
