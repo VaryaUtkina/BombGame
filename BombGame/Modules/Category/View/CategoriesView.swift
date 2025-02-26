@@ -20,7 +20,7 @@ struct CategoriesView: View {
     var body: some View {
         BackgroundView {
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 14) {
+                LazyVGrid(columns: columns) {
                     ForEach(viewModel.categories) { category in
                         CategoryView(
                             category: category,
@@ -28,14 +28,8 @@ struct CategoriesView: View {
                         )
                         .frame(height: 150)
                         .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
-                        .padding(.bottom, 20)
-                        .padding(
-                            .top, (UIDevice.current.systemVersion.starts(with: "16") ||
-                                        UIDevice.current.systemVersion.starts(with: "17")) &&
-                                 (category.id == .movie || category.id == .sport)
-                                 ? 50
-                                 : 0
-                        )
+                        .padding(.bottom, 16)
+                        .padding(.top, getTopPadding(for: category))
                     }
                 }
                 .padding(.horizontal, 23)
@@ -74,6 +68,13 @@ struct CategoriesView: View {
                 }
             }
         }
+    }
+    
+    private func getTopPadding(for category: Category) -> CGFloat {
+        if #unavailable(iOS 18.0), (category.id == .movie || category.id == .sport) {
+            return 50
+        }
+        return 0
     }
 }
 

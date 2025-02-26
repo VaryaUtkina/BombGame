@@ -11,6 +11,6 @@ struct OwnQuestionsModel {
     
     init() {
         texts = OwnQuestionsTexts()
-        maximumInputTextCount = 150
+        maximumInputTextCount = 100
     }
 }

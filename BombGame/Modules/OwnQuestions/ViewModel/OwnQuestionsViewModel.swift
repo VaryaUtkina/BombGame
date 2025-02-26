@@ -13,12 +13,13 @@ final class OwnQuestionsViewModel: ObservableObject {
     @Published var questions: [String] = []
     
     let manager: DataManager
-    let maximumInputTextCount = 150
+    let maximumInputTextCount: Int
     
     init(model: OwnQuestionsModel) {
         self.model = model
         manager = DataManager.shared
         questions = manager.gameData.ownQuestions
+        maximumInputTextCount = model.maximumInputTextCount
     }
     
     func saveQuestion() {

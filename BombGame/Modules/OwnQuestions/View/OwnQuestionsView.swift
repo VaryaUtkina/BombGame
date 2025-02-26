@@ -15,16 +15,19 @@ struct OwnQuestionsView: View {
     var body: some View {
         BackgroundView {
             ScrollView {
-                ForEach(viewModel.questions, id: \.self) { question in
-                    OwnQuestionView(
-                        text: question,
-                        onDelete: {
-                            withAnimation { viewModel.deleteQuestion(question) }
-                        }
-                    )
-                    .padding(.top, 8)
+                VStack {
+                    ForEach(viewModel.questions, id: \.self) { question in
+                        OwnQuestionView(
+                            text: question,
+                            onDelete: {
+                                withAnimation { viewModel.deleteQuestion(question) }
+                            }
+                        )
+                        .padding(.top, 8)
+                    }
+                    .padding(.horizontal, 16)
                 }
-                .padding(.horizontal, 16)
+                .padding(.top, getTopPadding())
             }
             
             OwnTextField(
@@ -58,7 +61,12 @@ struct OwnQuestionsView: View {
         }
     }
     
-    
+    private func getTopPadding() -> CGFloat {
+        if #unavailable(iOS 18.0) {
+            return 50
+        }
+        return 0
+    }
 }
 
 #Preview {
