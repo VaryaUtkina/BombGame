@@ -10,6 +10,7 @@ import SwiftUI
 struct CategoriesView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel = CategoriesViewModel()
+    @State private var shouldNavigateToOwnCategory = false
     
     private let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 23),
@@ -17,20 +18,22 @@ struct CategoriesView: View {
     ]
     
     var body: some View {
-        ZStack {
-            Image("CategoryBackground")
-                .resizable()
-                .ignoresSafeArea(edges: .all)
-            
+        BackgroundView {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 34) {
                     ForEach(viewModel.categories) { category in
-                        CategoryView(category: category)
-                            .frame(height: 150)
-                            .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
+                        CategoryView(
+                            category: category,
+                            navigateToOwnCategory: $shouldNavigateToOwnCategory
+                        )
+                        .frame(height: 150)
+                        .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
                     }
                 }
-                .padding(23)
+                .padding(.horizontal, 23)
+            }
+            .navigationDestination(isPresented: $shouldNavigateToOwnCategory) {
+                OwnQuestionsView()
             }
             
         }
