@@ -24,6 +24,7 @@ struct RuleTextView: View {
                 
                 Text(rule.attributedText)
                     .font(Font.customFont(size: 20).weight(.medium))
+                    .foregroundStyle(Color.primaryText)
                     .multilineTextAlignment(.leading)
                     .minimumScaleFactor(0.8)
                     .layoutPriority(1)
@@ -38,6 +39,7 @@ struct RuleTextView: View {
                         .overlay {
                             Text("Старт игры")
                                 .font(Font.customFont(size: 12).weight(.regular))
+                                .foregroundStyle(Color.primaryText)
                         }
                         .frame(maxWidth: .infinity)
                 }

@@ -111,6 +111,8 @@ struct SettingsView: View {
                             .presentationDetents([.fraction(0.87)])
                     }
                 }
+                .padding(.top, getTopPadding())
+                .padding(.bottom, 20)
             }
             
         }
@@ -131,6 +133,13 @@ struct SettingsView: View {
                     .foregroundStyle(Color.primaryText)
             }
         }
+    }
+    
+    private func getTopPadding() -> CGFloat {
+        if #unavailable(iOS 18.0) {
+            return 20
+        }
+        return 0
     }
 }
 
