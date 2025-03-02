@@ -37,7 +37,10 @@ struct OwnQuestionsView: View {
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: { dismiss() }) {
+                    Button(action: {
+                        viewModel.checkFilling()
+                        dismiss()
+                    }) {
                         Image(systemName: "chevron.left")
                             .resizable()
                             .frame(width: 12, height: 20)

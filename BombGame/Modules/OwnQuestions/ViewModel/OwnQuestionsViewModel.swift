@@ -33,4 +33,10 @@ final class OwnQuestionsViewModel: ObservableObject {
         manager.deleteOwnQuestion(at: question)
         questions = manager.gameData.ownQuestions
     }
+    
+    func checkFilling() {
+        if !questions.isEmpty {
+            SettingsManager.shared.toggleCategoryIndex(.own)
+        }
+    }
 }
