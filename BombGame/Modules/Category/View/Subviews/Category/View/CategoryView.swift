@@ -46,6 +46,9 @@ struct CategoryView: View {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(Color.black, lineWidth: 1)
         )
+        .onAppear {
+            viewModel.checkSelection()
+        }
     }
     
     init(

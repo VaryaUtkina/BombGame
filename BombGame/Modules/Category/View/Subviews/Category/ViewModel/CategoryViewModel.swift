@@ -29,9 +29,16 @@ final class CategoryViewModel: ObservableObject {
             navigateToOwnCategory = false
         }
         
-        manager.toggleCategory(category)
+        if category.id != .own || isActive {
+            manager.toggleCategory(category)
+        }
+        
         isActive = manager.isActive(category)
         showCheckmark = manager.isActive(category)
-        objectWillChange.send()
+    }
+    
+    func checkSelection() {
+        isActive = manager.isActive(category)
+        showCheckmark = isActive
     }
 }
