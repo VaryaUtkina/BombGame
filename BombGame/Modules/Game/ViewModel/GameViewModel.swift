@@ -99,7 +99,7 @@ final class GameViewModel: ObservableObject {
     private func makeExplosion() {
         guard !isExploded else { return }
         isExploded = true
-        print(#function, " ", counter)
+        //print(#function, " ", counter)
         let explosionMusic = settingsManager.settings.explosionMusic.fileName
         audioPlayer.playSound(file: explosionMusic, loopsNumber: 1)
         if settingsManager.settings.isVibrationEnabled {

@@ -23,9 +23,7 @@ struct BackgroundView<Content: View>: View {
                 .ignoresSafeArea()
                 .foregroundStyle(.curvedShape)
             
-            VStack {
-                content
-            }
+            content
         }
     }
 }

@@ -24,7 +24,6 @@ struct SettingsSection<Content: View>: View {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(Color.primaryText, lineWidth: 1)
         )
-        .padding(.horizontal, 18)
         .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 4)
 
     }
