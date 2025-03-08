@@ -33,6 +33,7 @@ struct TeamView: View {
                             DeveloperView(developer: developer)
                         }
                     }
+                    .padding(.horizontal, 18)
                 }
             }
         }
@@ -60,7 +61,6 @@ struct TeamView: View {
                 }
             }
         }
-        .padding(.horizontal, 16)
     }
 }
 

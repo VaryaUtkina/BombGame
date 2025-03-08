@@ -111,6 +111,7 @@ struct SettingsView: View {
                             .presentationDetents([.fraction(0.87)])
                     }
                 }
+                .padding(.horizontal, 18)
                 .padding(.top, getTopPadding())
                 .padding(.bottom, 20)
             }

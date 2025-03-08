@@ -39,78 +39,56 @@ struct GameView: View {
     }
     
     var body: some View {
-            ZStack {
-                Colors.ComponentsColors.gameBackground
-                    .ignoresSafeArea()
+        BackgroundView {
+            VStack {
+                Text(viewModel.topText)
+                    .multilineTextAlignment(.center)
+                    .font(topTextFont)
+                    .foregroundStyle(Colors.TextColors.primary)
                 
-                CurvedShape()
-                    .ignoresSafeArea()
-                    .foregroundStyle(.curvedShape)
+                LottieView(animation: .named(viewModel.model.texts.animationName))
+                    .animationSpeed(viewModel.animationSpeed)
+                    .playbackMode(playbackMode)
                 
-                
-                VStack {
-                    
-                    navBarView
-                    
-                    Text(viewModel.topText)
-                        .multilineTextAlignment(.center)
-                        .font(topTextFont)
-                        .foregroundStyle(Colors.TextColors.primary)
-                    
-                    LottieView(animation: .named(viewModel.model.texts.animationName))
-                        .animationSpeed(viewModel.animationSpeed)
-                        .playbackMode(playbackMode)
-                    
-                    Button {
-                        viewModel.startGame()
-                    } label: {
-                        Text(viewModel.model.texts.launch)
-                            .font(Font.customFont(size: 20).weight(.bold))
-                            .foregroundStyle(Colors.TextColors.primary)
-                    }
-                    .frame(maxWidth: .infinity, minHeight: 55)
-                    .background(Colors.ComponentsColors.gameViewButton)
-                    .clipShape(.rect(cornerRadius: 10))
-                    .opacity(viewModel.isGameLaunched ? 0 : 1)
-                    
-                    
-                }
-                .padding(.horizontal, 22.5)
-                .padding(.bottom, 28)
+                ButtonView(
+                    title: viewModel.model.texts.launch,
+                    action: { viewModel.startGame() }
+                )
+                .opacity(viewModel.isGameLaunched ? 0 : 1)
             }
+            .padding(.horizontal, 23)
+            .padding(.bottom, 28)
+        }
         .navigationBarBackButtonHidden()
-        .navigationDestination(isPresented: $viewModel.shouldMoveToGameEnd) { FinalGameView() }
-    }
-    
-    var navBarView: some View {
-        HStack {
-            
-            Button {
-                viewModel.dismiss()
-                dismiss()
-            } label: {
-                Image(.backArrow)
-                    .foregroundStyle(Colors.TextColors.primary)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { dismiss() }) {
+                    Image(systemName: "chevron.left")
+                        .resizable()
+                        .frame(width: 12, height: 20)
+                        .foregroundStyle(Color.primaryText)
+                        .font(.title.weight(.bold))
+                }
             }
-            
-            Spacer()
-            
-            Text(viewModel.model.texts.title)
-                .font(Font.customFont(size: 30).weight(.black))
-                .foregroundStyle(Colors.TextColors.primary)
-            
-            Spacer()
-            
-            Button {
-                viewModel.pauseGame()
-            } label: {
-                Image(systemName: playPauseButtonImage)
-                    .resizable()
-                    .frame(width: 27, height: 27)
-                    .foregroundStyle(Colors.TextColors.primary)
+            ToolbarItem(placement: .principal) {
+                Text(viewModel.model.texts.title)
+                    .font(Font.customFont(size: 30).weight(.black))
+                    .foregroundStyle(Color.primaryText)
             }
-            .opacity(viewModel.isGameLaunched ? 1 : 0)
-            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    viewModel.pauseGame()
+                } label: {
+                    Image(systemName: playPauseButtonImage)
+                        .resizable()
+                        .frame(width: 27, height: 27)
+                        .foregroundStyle(Colors.TextColors.primary)
+                }
+                .opacity(viewModel.isGameLaunched ? 1 : 0)
+            }
+        }
+        .navigationDestination(isPresented: $viewModel.shouldMoveToGameEnd) {
+            FinalGameView()
         }
     }
 }
