@@ -10,7 +10,6 @@ import Foundation
 final class CategoryViewModel: ObservableObject {
     private let manager = DataManager.shared
     let category: Category
-    let isBlind: Bool
     
     @Published var isActive: Bool
     @Published var showCheckmark: Bool
@@ -18,7 +17,6 @@ final class CategoryViewModel: ObservableObject {
     
     init(category: Category, isBlind: Bool = false) {
         self.category = category
-        self.isBlind = isBlind
         self.isActive = manager.isActive(category) && !isBlind
         self.showCheckmark = manager.isActive(category) || isBlind
         self.navigateToOwnCategory = false
@@ -40,7 +38,7 @@ final class CategoryViewModel: ObservableObject {
     }
     
     func checkSelection() {
-        isActive = manager.isActive(category) && !isBlind
-        showCheckmark = isActive || isBlind
+        isActive = manager.isActive(category)
+        showCheckmark = isActive
     }
 }
